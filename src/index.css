@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+*{
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+        --color-primary: hsl(223, 44%, 94%);
+        --color-secondary: hsl(226, 50%, 10%);
+        --color-tertiary: hsl(286, 80%, 20%);
+        --color-fourth: hsl(0, 0%, 36%);
+        --color-accent: hsl(166, 80%, 20%);
+    }
+
+.dark {
+        --color-primary: hsl(0, 0%, 0%);
+        --color-secondary: hsl(226, 50%, 90%);
+        --color-fourth: hsl(0, 0%, 36%);
+        --color-tertiary: hsl(286, 80%, 80%);
+        --color-accent: hsl(166, 80%, 80%);
+    }
+
+
+h1{
+  color: var(--color-secondary);
+}
+
+p{
+  color: var(--color-secondary);
+
+  .sub{
+    color: hsl(60, 1%, 47%);
+  }
+}
+
+h1, p{
+  transition: color 0.5s ease-in-out;
+}
+
+h3{
+  font-size: 1.2rem;
+}
+
+/* section{
+  border: var(--color-secondary);
+  transition: 0.5s ease;
+} */
+
+html, body {
+  font-size: 62.5%;
+  font-family: var(--ff--primary);
+
+  background-color: var(--color-primary);
+
+  scroll-behavior: smooth;
+  transition: background-color 0.8s ease-in-out, color 0.8s ease-in-out;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+main{
+  max-width: 96%;
+  margin-inline: auto;
+}
+
+@keyframes appear{
+  from{
+    opacity: 0;
+    scale: 0.5;
+  }
+  to{
+    opacity: 1;
+    scale: 1;
+    
+  
+  }
+}.anim{
+  animation: appear linear;
+  /* animation-timeline: view(); */
+  animation-range: entry 0% cover 40%;
+}
+
+
+.card {
+  width: 200px;
+  height: 250px;
+  margin: 1rem auto;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+}
+
+.card-front {
+  background: white;
+  border: 1px solid #e5e7eb;
+}
+
+.card-back {
+  background: #8b5cf6;
+  color: white;
+  transform: rotateY(180deg);
+}
