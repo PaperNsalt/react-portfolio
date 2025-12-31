@@ -42,7 +42,7 @@ function Header() {
                 whileTap={{ scale: 0.9, y: 1 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 className={navbarStyle}
-                onClick={() => scrollToPosition(2000)}
+                onClick={() => scrollToPosition(1914)}
               >
                 02.SKILLS
               </motion.button>
@@ -53,7 +53,7 @@ function Header() {
                 whileTap={{ scale: 0.9, y: 1 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 className={navbarStyle}
-                onClick={() => scrollToPosition(4400)}
+                onClick={() => scrollToPosition(4414)}
               >
                 03.PROJECTS
               </motion.button>
@@ -64,7 +64,7 @@ function Header() {
                 whileTap={{ scale: 0.9, y: 1 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 className={navbarStyle}
-                onClick={() => scrollToPosition(7236)}
+                onClick={() => scrollToPosition(7714)}
               >
                 04.GET IN TOUCH
               </motion.button>

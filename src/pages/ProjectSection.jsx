@@ -4,6 +4,7 @@ import ProjectCard from "../components/ProjectCard.jsx";
 import QuizApplication from "../img/QuizApplication.png";
 import thebrandcollective from "../img/thebrandcollective.png"
 import StudentManagementSystem from "../img/Student Management System.png";
+import BuGwaCalculator from "../img/Bu Gwa Calculator.png";
 
 import QuickDeal from "../img/QuickDeal.png";
 import CoffeeMadness from "../img/CoffeeMadness.png";
@@ -64,6 +65,16 @@ function ProjectSection() {
         liveLink="https://your-live-demo.com"
         githubLink="https://github.com/PaperNsalt/QuoteApp"
        image={QuizApplication}
+        imageAlt="Preview"
+      />
+
+      <ProjectCard
+        title="GWA Calculator"
+        description="InspireMe is a mobile application that generates inspirational quotes by fetching data from an external API. Developed using Flutter and Dart, the app delivers a smooth and responsive user experience while dynamically displaying quotes in real time. The project demonstrates API integration, asynchronous data handling, and clean UI design for cross-platform mobile applications."
+        technologies={["React.js", "Tailwind CSS"]}
+        liveLink="https://your-live-demo.com"
+        githubLink="https://github.com/PaperNsalt/bu-gwa-calculator"
+        image={BuGwaCalculator}
         imageAlt="Preview"
       />
 
