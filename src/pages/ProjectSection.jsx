@@ -64,7 +64,7 @@ function ProjectSection() {
         technologies={["Dart", "Flutter"]}
         liveLink="https://your-live-demo.com"
         githubLink="https://github.com/PaperNsalt/QuoteApp"
-       image={QuizApplication}
+        image={QuizApplication}
         imageAlt="Preview"
       />
 

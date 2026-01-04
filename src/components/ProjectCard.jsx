@@ -65,6 +65,7 @@ function ProjectCard({
               href={liveLink}
               label="Live Demo"
               newTab
+              download={false}
               icon={LiveDemoIcon}
             />
           )}
