@@ -1,16 +1,29 @@
-# React + Vite
+# Portfolio Website
+## 🌐 Live Demo
+([https://papernsalt.github.io/portfolio](https://papernsalt.github.io/react-portfolio/))
+## 📌 Description
+This is my personal portfolio website showcasing my projects, skills, and experience as a web developer. It serves as a central place to present my work, highlight the technologies I use, and provide ways to contact me.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 Features
+- Modern and clean UI design
+- Responsive layout for all screen sizes
+- Project showcase section
+- About me section
+- Contact and social media links
+- Smooth animations and transitions
 
-Currently, two official plugins are available:
+## 🛠️ Technologies Used
+- React.js
+- Tailwind CSS
+- JavaScript
+- Framer Motion
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📷 Screenshots
+<img width="1900" height="918" alt="image" src="https://github.com/user-attachments/assets/7d3807f2-7e13-4942-a900-85542e9586c2" />
+<img width="1902" height="917" alt="image" src="https://github.com/user-attachments/assets/0e1e1eb8-536b-41a4-8f34-dd22796d33c7" />
+<img width="1921" height="895" alt="image" src="https://github.com/user-attachments/assets/0143cb77-f5ec-47e1-9e2e-0f49526ec80f" />
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 📌 Prerequisites
+- Node.js (v16 or later)
+- npm or yarn
