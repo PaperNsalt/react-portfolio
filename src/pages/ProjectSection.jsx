@@ -70,9 +70,9 @@ function ProjectSection() {
 
       <ProjectCard
         title="GWA Calculator"
-        description="InspireMe is a mobile application that generates inspirational quotes by fetching data from an external API. Developed using Flutter and Dart, the app delivers a smooth and responsive user experience while dynamically displaying quotes in real time. The project demonstrates API integration, asynchronous data handling, and clean UI design for cross-platform mobile applications."
+        description="The GWA Calculator is a web-based application that helps students compute their **General Weighted Average (GWA)** easily and accurately. Users can dynamically add or remove subjects, input grades and units, and instantly see their computed GWA with a clean and modern interface."
         technologies={["React.js", "Tailwind CSS"]}
-        liveLink="https://your-live-demo.com"
+        liveLink="https://papernsalt.github.io/bu-gwa-calculator/"
         githubLink="https://github.com/PaperNsalt/bu-gwa-calculator"
         image={BuGwaCalculator}
         imageAlt="Preview"
