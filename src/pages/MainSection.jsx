@@ -20,7 +20,7 @@ import {
   ReactIcon,
 } from "../components/IconComponent.jsx";
 
-import cvFile from "../assets/Rellama CV.pdf";
+import cvFile from "../assets/RELLAMA, JEREMY O. CV.pdf";
 
 import jem from "../img/jem.png";
 import Photoshop from "../assets/ps.svg";
