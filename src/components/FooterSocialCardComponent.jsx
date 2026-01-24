@@ -1,40 +1,48 @@
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import React from "react";
 
 const FooterSocialCard = ({ icon, platform, username, url }) => {
   return (
-    <motion.div
-      whileHover={{ scale: 1.05, y: -2 }}
-      whileTap={{ scale: 0.9, y: 1 }}
-      transition={{ type: "spring", stiffness: 300, damping: 15 }}
-      className="flex flex-row justify-start items-start gap-6 max-[426px]:gap-0 max-[426px]:mt-6"
+    <motion.a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      whileHover={{ scale: 1.02, y: -5 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      // LAYOUT: flex-col on mobile (Icon Top), flex-row on desktop (Icon Left)
+      className="flex flex-col md:flex-row items-start gap-3 sm:gap-6 xl:gap-8 group cursor-pointer"
     >
-      {/* Responsive icon wrapper */}
-      <div className="w-20 h-20 max-[426px]:w-6 max-[426px]:h-10">
+      {/* --- ICON WRAPPER --- */}
+      {/* Smaller icon on mobile to fit the tight grid */}
+      <div className="shrink-0 w-8 h-8 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24">
         {React.cloneElement(icon, {
-          className: "w-full h-full" // Fill the wrapper
+          className: "w-full h-full object-contain fill-current text-black group-hover:text-white transition-colors duration-300"
         })}
       </div>
 
-      <div className="flex flex-col justify-center items-start max-[426px]:gap-0 xl:gap-6">
-        {/* Platform text */}
-        <h1 className=" xl:text-[6rem] lg:text-[5rem] md:text-[4rem] sm:text-[3rem] max-[426px]:text-[1.6rem] max-[426px]:leading-10 tracking-[-0.1em] leading-20">
+      {/* --- TEXT CONTENT --- */}
+      <div className="flex flex-col items-start justify-center w-full">
+        {/* Platform Title */}
+        <h2 className="text-xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5rem] font-medium tracking-tighter leading-none mb-2 group-hover:text-white transition-colors duration-300">
           {platform}
-        </h1>
+        </h2>
 
-        {/* Username link with motion hover */}
-        <motion.p className="border rounded-3xl  py-1 px-4 max-[426px]:py-1 max-[426px]:px-2 xl:text-[3.2rem] lg:text-[2.8rem] md:text-[2.4rem] sm:text-[1.8rem] max-[426px]:text-[..6rem] tracking-[-.1em] hover:bg-white/80">
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-black hover:text-[#f2552e]"
-          >
-            {username}
-          </a>
-        </motion.p>
+        {/* Username Badge */}
+        <div className="
+          border border-black rounded-lg md:rounded-full 
+          px-2 py-1 sm:px-5 sm:py-2 
+          w-full md:w-auto
+          text-[0.65rem] sm:text-lg md:text-xl xl:text-3xl 
+          tracking-tight font-medium
+          bg-transparent group-hover:bg-white group-hover:border-white group-hover:text-[#f2552e] 
+          transition-all duration-300
+          break-all md:break-normal text-center md:text-left
+        ">
+          {username}
+        </div>
       </div>
-    </motion.div>
+    </motion.a>
   );
 };
 

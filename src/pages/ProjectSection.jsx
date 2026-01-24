@@ -78,6 +78,16 @@ function ProjectSection() {
         imageAlt="Preview"
       />
 
+        <ProjectCard
+        title="QuoteSpark"
+        description="QuoteSpark is a modern web application that fetches and displays random inspirational quotes. It features a sleek, responsive interface, allows users to get new quotes instantly, and can integrate with APIs for an endless supply of motivational content."
+        technologies={["React.js", "Tailwind CSS", "Framer Motion"]}
+        liveLink="https://your-live-demo.com"
+        githubLink="https://github.com/PaperNsalt/Student-Management-System"
+        image={StudentManagementSystem}
+        imageAlt="Preview"
+      />
+
       <div className="flex justify-start xl:mt-10">
       <ButtonComponent 
       href="https://github.com/PaperNsalt?tab=repositories"
