@@ -1,21 +1,25 @@
-import { motion } from "motion/react";
+import React from "react";
+import { motion } from "framer-motion"; // or "motion/react"
 
 const TechCard = ({ icon, title }) => {
-  const techCards =
-    "anim rounded-4xl p-8 flex flex-col justify-center items-center";
-
   return (
     <motion.div
-      whileHover={{ scale: 1.2, y: -2 }}
-      transition={{ type: "spring", stiffness: 500}}
-      whileTap={{ scale: 0.9, y: 1 }}
-      className={techCards}
+      // Interactive Animations (Hover/Tap)
+      whileHover={{ scale: 1.1, y: -5 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+      
+      // Styling
+      className="flex flex-col justify-center items-center p-6 md:p-8 rounded-[2rem] bg-white/5 hover:bg-black/5 transition-colors cursor-pointer group h-full"
     >
-      {icon}
+      {/* Icon Wrapper - Scales slightly on group hover */}
+      <div className="transition-transform duration-300 group-hover:scale-110">
+        {icon}
+      </div>
 
-      <h1 className="max-[426px]:text-[1.2rem] md:text-[2.4rem] lg:text-[2.6rem] xl:text-[2.6rem] font-medium tracking-tighter mt-4">
+      <p className="mt-4 text-lg sm:text-xl md:text-2xl xl:text-3xl font-medium tracking-tighter text-center">
         {title}
-      </h1>
+      </p>
     </motion.div>
   );
 };

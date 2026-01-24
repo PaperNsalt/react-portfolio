@@ -77,6 +77,17 @@ function MainSection() {
     },
   };
 
+  const techData = [
+    { title: "HTML", icon: HtmlIcon },
+    { title: "CSS", icon: CssIcon },
+    { title: "PHP", icon: PhpIcon },
+    { title: "JavaScript", icon: JavaScriptIcon },
+    { title: "Flutter", icon: FlutterIcon },
+    { title: "Dart", icon: DartIcon },
+    { title: "Tailwind", icon: TailwindIcon },
+    { title: "React.JS", icon: ReactIcon },
+  ];
+
   //onscroll animation
 
   const hugeText =
@@ -398,32 +409,36 @@ function MainSection() {
       </section>
 
       {/* fourth section */}
-      <section className="border-e-40 border-b-40 max-[426px]:border-b-20 max-[426px]:border-e-20 xl:p-30 lg:p-16 md:p-10 max-[426px]:px-8 max-[426px]:py-6">
-        <div className="flex justify-center items-center">
-          <h1 className="anim text-left max-[426px]:text-[4rem] max-[426px]:leading-10 md:text-[7rem] lg:text-[10rem] xl:text-[14rem] xl:leading-60 font-medium tracking-tighter">
-            TECH STACKS
-          </h1>
+      <section className="w-full border-r-[20px] border-b-[20px] md:border-r-[30px] md:border-b-[30px] lg:border-r-[40px] lg:border-b-[40px] border-black p-6 sm:p-10 md:p-20 xl:p-32 overflow-hidden">
+      <motion.div
+        variants={containerVars}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        {/* --- TITLE --- */}
+        <div className="flex justify-center items-center mb-16 xl:mb-24">
+          <div className="overflow-hidden">
+            <motion.h1
+              variants={revealVars}
+              className="text-center text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] xl:text-[12rem] font-medium tracking-tighter leading-none"
+            >
+              TECH STACKS
+            </motion.h1>
+          </div>
         </div>
 
-        {/* techCards */}
-        <div className="anim grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-6 xl:mt-20">
-          <TechCard title="HTML" icon={HtmlIcon} />
-
-          <TechCard title="CSS" icon={CssIcon} />
-
-          <TechCard title="PHP" icon={PhpIcon} />
-
-          <TechCard title="JavaScript" icon={JavaScriptIcon} />
-
-          <TechCard title="Flutter" icon={FlutterIcon} />
-
-          <TechCard title="Dart" icon={DartIcon} />
-
-          <TechCard title="Tailwind" icon={TailwindIcon} />
-
-          <TechCard title="React.JS" icon={ReactIcon} />
+        {/* --- GRID --- */}
+        {/* Responsive: 2 cols (mobile) -> 3 cols (tablet) -> 4 cols (desktop) */}
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-10">
+          {techData.map((tech, index) => (
+            <motion.div key={index} variants={fadeVars}>
+              <TechCard title={tech.title} icon={tech.icon} />
+            </motion.div>
+          ))}
         </div>
-      </section>
+      </motion.div>
+    </section>
 
       {/* fifth section */}
       <section className={portfolioSectionBorders1}>
