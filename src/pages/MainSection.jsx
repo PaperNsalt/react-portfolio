@@ -1,5 +1,6 @@
 import "../App.css";
 import { motion, scale } from "motion/react";
+import React from "react";
 
 import StoryCard from "../components/StoryCard.jsx";
 import SkillCard from "../components/SkillsSectionComponent.jsx";
@@ -45,78 +46,115 @@ function MainSection() {
   const headlineTextClasses2 =
     "text-left max-[426px]:text-[4rem] max-[426px]:leading-10 md:text-[7rem] md:leading- lg:text-[12rem] xl:leading-76 font-medium tracking-tighter";
 
+    // --- 1. Animation Variants ---
+  
+  // Staggers the entrance of elements
+  const containerVars = {
+    initial: {},
+    animate: {
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  // The "Masked Reveal" effect (slides up from invisible floor)
+  const revealVars = {
+    initial: { y: "110%" },
+    animate: { 
+      y: "0%",
+      transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } // Custom cubic-bezier for premium feel
+    }
+  };
+
+  // Simple fade for smaller utility text
+  const fadeVars = {
+    initial: { opacity: 0 },
+    animate: { 
+      opacity: 1, 
+      transition: { duration: 0.8, delay: 0.5 } 
+    }
+  };
+
+  const hugeText = "font-black tracking-tighter leading-[0.85] text-[14vw] md:text-[8rem] lg:text-[10rem] xl:text-[14rem] uppercase";
+  const metaText = "font-mono text-xs md:text-sm tracking-widest uppercase opacity-60";
+
   return (
     <>
       {/* first section */}
       <section className={portfolioSectionBorders}>
-        <div className="anim grid grid-cols-2 md:grid-rows-[80px] lg:grid-rows-[100px] xl:grid-rows-[190px] py-4 px-4 gap-2">
-          <motion.div
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="anim flex justify-start items-center "
+      <motion.div
+        variants={containerVars}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true, margin: "-10%" }}
+        className="max-w-[1800px] mx-auto flex flex-col gap-2 md:gap-0"
+      >
+        
+        {/* --- ROW 1: BEYOND --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center">
+          {/* Wrapper with overflow-hidden is crucial for the 'reveal' effect */}
+          <div className="relative overflow-hidden">
+            <motion.h1 variants={revealVars} className={hugeText}>
+              Beyond
+            </motion.h1>
+          </div>
+        </div>
+
+        {/* --- ROW 2: DESIGN + DATE --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center gap-4 md:gap-0">
+          <div className="relative overflow-hidden">
+            <motion.h1 variants={revealVars} className={hugeText}>
+              Design
+            </motion.h1>
+          </div>
+
+          <motion.div 
+            variants={fadeVars} 
+            className="flex justify-start md:justify-center items-center max-[426px]:justify-center"
           >
-            <h1 className={headlineTextClasses + " xl:text-[24rem] "}>
-              BEYOND
-            </h1>
+            <div className="flex items-center gap-3 ">
+              <span className="h-[1px] w-8 bg-stone-900/50"></span>
+              <h2 className={metaText}>2025 — 2026</h2>
+            </div>
           </motion.div>
         </div>
 
-        <div className="anim grid grid-cols-2 md:grid-rows-[80px] lg:grid-rows-[100px] xl:grid-rows-[190px] py-4 px-4 gap-2">
-          <motion.div
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="anim flex justify-start items-center "
+        {/* --- ROW 3: TAGLINE + INTO --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center gap-4 md:gap-0 mt-4 md:mt-0">
+          {/* Order-2 on mobile so "INTO" comes first if you prefer, or keep as is. Here I kept order: natural */}
+          <motion.div 
+            variants={fadeVars}
+            className="flex justify-start md:justify-center items-center max-[426px]:justify-center"
           >
-            <h1 className={headlineTextClasses + " xl:text-[18rem] "}>
-              DESIGN
-            </h1>
+            <div className="border border-stone-900/30 rounded-full px-4 py-2">
+              <h2 className={`${metaText} !opacity-100`}>5 Years of Grinding</h2>
+            </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="anim flex justify-center items-center"
-          >
-            <h1 className={subHeadlineTextClasses}>2025 - 2026</h1>
-          </motion.div>
+          <div className="relative overflow-hidden flex justify-start md:justify-end max-[426px]:justify-center">
+            <motion.h1 variants={revealVars} className={hugeText}>
+              Into
+            </motion.h1>
+          </div>
         </div>
 
-        <div className="anim grid grid-cols-2 md:grid-rows-[80px] lg:grid-rows-[100px] xl:grid-rows-[190px] py-4 px-4 gap-2">
-          <motion.div
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="anim flex justify-center items-center"
-          >
-            <h1 className={subHeadlineTextClasses}>5 YEAR'S OF GRINDING</h1>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="anim flex justify-end items-center "
-          >
-            <h1 className={headlineTextClasses2 + " xl:text-[24rem] "}>INTO</h1>
-          </motion.div>
+        {/* --- ROW 4: EXPERIENCE --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center">
+          {/* Desktop: Column 2. Mobile: Column 1. */}
+          <div className="md:col-start-2 relative overflow-hidden flex justify-start md:justify-end max-[426px]:justify-center">
+             <motion.h1 
+               variants={revealVars} 
+               className={hugeText}
+             >
+              Exp
+            </motion.h1>
+          </div>
         </div>
 
-        <div className="anim grid grid-cols-2 md:grid-rows-[80px] lg:grid-rows-[100px] xl:grid-rows-[190px] py-4 px-4 gap-2">
-          <motion.div
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="anim col-start-2 col-end-3 flex justify-end items-center "
-          >
-            <h1 className={headlineTextClasses2 + " xl:text-[18rem] "}>
-              EXPERIENCE
-            </h1>
-          </motion.div>
-        </div>
-      </section>
+      </motion.div>
+    </section>
 
       {/* second section */}
       <section className="border-e-40 border-b-40 max-[426px]:border-b-20 max-[426px]:border-e-20 xl:p-50 lg:p-30 md:p-20 max-[426px]:px-8 max-[426px]:py-40">
