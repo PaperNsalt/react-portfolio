@@ -248,131 +248,153 @@ function MainSection() {
       </section>
 
       {/* third section */}
-      <section className={portfolioSectionBorders1}>
-        <div className="anim flex justify-center items-center">
-          <div>
-            <h1 className="text-left max-[426px]:text-[4rem] max-[426px]:leading-10 md:text-[7rem] lg:text-[10rem] xl:text-[14rem] xl:leading-76 font-medium tracking-tighter">
-              SKILLS
-            </h1>
+      <section
+        className={`${portfolioSectionBorders1} p-6 sm:p-10 md:p-20 xl:p-32 overflow-hidden`}
+      >
+        <motion.div
+          variants={containerVars}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true, margin: "-100px" }}
+          className="w-full"
+        >
+          {/* --- TITLE --- */}
+          <div className="flex justify-center md:justify-start xl:justify-center items-center mb-16 md:mb-24">
+            <div className="overflow-hidden">
+              <motion.h1
+                variants={revealVars}
+                className="text-center md:text-left text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-medium tracking-tighter leading-none"
+              >
+                SKILLS
+              </motion.h1>
+            </div>
           </div>
-        </div>
-        <div className="mt-20 md:mt-0 lg:mt-0 xl:mt-20 anim grid md:grid-cols-[repeat(auto-fit,minmax(100px,1fr))] lg:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] xl:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-8">
-          <SkillCard
-            icon={illustration}
-            title="Illustration"
-            description={
-              <>
-                I possess a comprehensive skill set in{" "}
-                <span className="font-medium border px-[5.1px] py-[1.2px] rounded-full hover:bg-[#f2552e]/80 transition-colors duration-200">
-                  illustration
-                </span>
-                , encompassing both traditional and digital techniques. My
-                expertise includes a strong understanding of color theory,
-                composition, and perspective, allowing me to create visually
-                compelling and balanced artworks.
-              </>
-            }
-          />
 
-          <SkillCard
-            icon={WebDev}
-            title="Web Development"
-            description={
-              <>
-                I excel at designing{" "}
-                <span className="font-medium border px-[5.1px] py-[1.2px] rounded-full hover:bg-[#f2552e]/80 transition-colors duration-200">
-                  intuitive
-                </span>
-                user interfaces and seamless user experiences, ensuring that
-                each site is both functional and aesthetically pleasing. My
-                experience with responsive design principles allows me to create
-                websites that perform optimally across different devices and
-                screen sizes.
-              </>
-            }
-          />
+          {/* --- SKILL CARDS GRID --- */}
+          {/* Responsive: 1 col (mobile) -> 2 cols (tablet) -> 3 cols (desktop) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-12 mb-20">
+            <motion.div variants={fadeVars} className="h-full">
+              <SkillCard
+                icon={illustration}
+                title="Illustration"
+                description={
+                  <>
+                    I possess a comprehensive skill set in{" "}
+                    <span className="font-medium border px-1.5 py-0.5 rounded-full hover:bg-[#f2552e]/80 transition-colors duration-200 hover:text-white hover:border-black cursor-default">
+                      illustration
+                    </span>
+                    , encompassing both traditional and digital techniques. My
+                    expertise includes a strong understanding of color theory,
+                    composition, and perspective.
+                  </>
+                }
+              />
+            </motion.div>
 
-          <SkillCard
-            icon={Layout}
-            title="Layout"
-            description={
-              <>
-                I possess a comprehensive skill set in{" "}
-                <span className="font-medium border px-[5.1px] py-[1.2px] rounded-full hover:bg-[#f2552e]/80 transition-colors duration-200">
-                  illustration
-                </span>
-                , encompassing both traditional and digital techniques. My
-                expertise includes color theory, composition, and perspective.
-              </>
-            }
-          />
-        </div>
+            <motion.div variants={fadeVars} className="h-full">
+              <SkillCard
+                icon={WebDev}
+                title="Web Development"
+                description={
+                  <>
+                    I excel at designing{" "}
+                    <span className="font-medium border px-1.5 py-0.5 rounded-full hover:bg-[#f2552e]/80 transition-colors duration-200 hover:text-white hover:border-black cursor-default">
+                      intuitive
+                    </span>
+                    user interfaces and seamless user experiences, ensuring that
+                    each site is both functional and aesthetically pleasing.
+                  </>
+                }
+              />
+            </motion.div>
 
-        <div className="mt-20 lg:mt-10 anim grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-8">
-          <motion.div
-            whileHover={{ scale: 1.2, y: -2 }}
-            transition={{ type: "spring", stiffness: 500 }}
-            whileTap={{ scale: 0.9, y: 1 }}
-            className="flex gap-4 justify-center items-center"
-          >
-            <img
-              className="max-[426px]:size-18 size-36 md:size-20 lg:size-20"
-              src={Photoshop}
-              alt="Photoshop"
-            />
-            <h1 className="max-[426px]:text-[1.4rem] lg:text-[2rem] xl:text-[3.8rem] tracking-tighter">
-              Photoshop
-            </h1>
-          </motion.div>
+            <motion.div variants={fadeVars} className="h-full">
+              <SkillCard
+                icon={Layout}
+                title="Layout"
+                description={
+                  <>
+                    I possess a comprehensive skill set in{" "}
+                    <span className="font-medium border px-1.5 py-0.5 rounded-full hover:bg-[#f2552e]/80 transition-colors duration-200 hover:text-white hover:border-black cursor-default">
+                      layout
+                    </span>
+                    , encompassing both traditional and digital techniques. My
+                    expertise includes color theory, composition, and
+                    perspective.
+                  </>
+                }
+              />
+            </motion.div>
+          </div>
 
-          <motion.div
-            whileHover={{ scale: 1.2, y: -2 }}
-            transition={{ type: "spring", stiffness: 500 }}
-            whileTap={{ scale: 0.9, y: 1 }}
-            className="flex gap-4 justify-center items-center"
-          >
-            <img
-              className="max-[426px]:size-18 size-36 md:size-20 lg:size-20 rounded-2xl"
-              src={Affinity}
-              alt="Affinity"
-            />
-            <h1 className="max-[426px]:text-[1.4rem] lg:text-[2rem] xl:text-[3.8rem] tracking-tighter">
-              Affinity
-            </h1>
-          </motion.div>
+          {/* --- SOFTWARE LOGOS GRID --- */}
+          {/* Responsive: 2 cols (mobile) -> 4 cols (desktop) */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
+            <motion.div
+              variants={fadeVars}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex flex-col md:flex-row gap-4 justify-center items-center p-4"
+            >
+              <img
+                className="w-16 h-16 md:w-20 md:h-20 object-contain"
+                src={Photoshop}
+                alt="Photoshop"
+              />
+              <p className="text-xl md:text-2xl xl:text-4xl tracking-tighter font-medium">
+                Photoshop
+              </p>
+            </motion.div>
 
-          <motion.div
-            whileHover={{ scale: 1.2, y: -2 }}
-            transition={{ type: "spring", stiffness: 500 }}
-            whileTap={{ scale: 0.9, y: 1 }}
-            className="flex gap-4 justify-center items-center"
-          >
-            <img
-              className="max-[426px]:size-18 size-36 md:size-20 lg:size-20"
-              src={Illustrator}
-              alt="Illustrator"
-            />
-            <h1 className="max-[426px]:text-[1.4rem] lg:text-[2rem] xl:text-[3.8rem] tracking-tighter">
-              Illustrator
-            </h1>
-          </motion.div>
+            <motion.div
+              variants={fadeVars}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex flex-col md:flex-row gap-4 justify-center items-center p-4"
+            >
+              <img
+                className="w-16 h-16 md:w-20 md:h-20 object-contain rounded-2xl"
+                src={Affinity}
+                alt="Affinity"
+              />
+              <p className="text-xl md:text-2xl xl:text-4xl tracking-tighter font-medium">
+                Affinity
+              </p>
+            </motion.div>
 
-          <motion.div
-            whileHover={{ scale: 1.2, y: -2 }}
-            transition={{ type: "spring", stiffness: 500 }}
-            whileTap={{ scale: 0.9, y: 1 }}
-            className="flex gap-4 justify-center items-center"
-          >
-            <img
-              className="max-[426px]:size-18 size-36 md:size-20 lg:size-20"
-              src={InDesign}
-              alt="InDesign"
-            />
-            <h1 className="max-[426px]:text-[1.4rem] lg:text-[rem] xl:text-[3.8rem] tracking-tighter">
-              InDesign
-            </h1>
-          </motion.div>
-        </div>
+            <motion.div
+              variants={fadeVars}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex flex-col md:flex-row gap-4 justify-center items-center p-4"
+            >
+              <img
+                className="w-16 h-16 md:w-20 md:h-20 object-contain"
+                src={Illustrator}
+                alt="Illustrator"
+              />
+              <p className="text-xl md:text-2xl xl:text-4xl tracking-tighter font-medium">
+                Illustrator
+              </p>
+            </motion.div>
+
+            <motion.div
+              variants={fadeVars}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex flex-col md:flex-row gap-4 justify-center items-center p-4"
+            >
+              <img
+                className="w-16 h-16 md:w-20 md:h-20 object-contain"
+                src={InDesign}
+                alt="InDesign"
+              />
+              <p className="text-xl md:text-2xl xl:text-4xl tracking-tighter font-medium">
+                InDesign
+              </p>
+            </motion.div>
+          </div>
+        </motion.div>
       </section>
 
       {/* fourth section */}
