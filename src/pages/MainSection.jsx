@@ -109,7 +109,7 @@ function MainSection() {
           {/* --- ROW 1: BEYOND --- */}
           <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center">
             {/* Wrapper with overflow-hidden is crucial for the 'reveal' effect */}
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden text-left max-[426px]:text-center">
               <motion.h1 variants={revealVars} className={hugeText}>
                 Beyond
               </motion.h1>
@@ -118,7 +118,7 @@ function MainSection() {
 
           {/* --- ROW 2: DESIGN + DATE --- */}
           <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center gap-4 md:gap-0">
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden text-left max-[426px]:text-center">
               <motion.h1 variants={revealVars} className={hugeText}>
                 Design
               </motion.h1>
@@ -149,7 +149,7 @@ function MainSection() {
               </div>
             </motion.div>
 
-            <div className="relative overflow-hidden flex justify-start md:justify-end max-[426px]:justify-center">
+            <div className="relative overflow-hidden flex justify-start md:justify-end max-[426px]:justify-center text-right">
               <motion.h1 variants={revealVars} className={hugeText}>
                 Into
               </motion.h1>
@@ -159,7 +159,7 @@ function MainSection() {
           {/* --- ROW 4: EXPERIENCE --- */}
           <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center">
             {/* Desktop: Column 2. Mobile: Column 1. */}
-            <div className="md:col-start-2 relative overflow-hidden flex justify-start md:justify-end max-[426px]:justify-center">
+            <div className="md:col-start-2 relative overflow-hidden flex justify-start md:justify-end max-[426px]:justify-center text-right">
               <motion.h1 variants={revealVars} className={hugeText}>
                 Exp
               </motion.h1>
