@@ -1,38 +1,86 @@
 import FlipCard from "./FlipCardComponent";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 function StoryCard() {
+  const containerVars = {
+    initial: {},
+    animate: {
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const revealVars = {
+    initial: { y: "110%" },
+    animate: {
+      y: "0%",
+      transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+    },
+  };
+
+  const fadeVars = {
+    initial: { opacity: 0, y: 30 },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
   return (
     <>
-      <div className="flex justify-center items-center">
-        <h1 className="anim text-left max-[426px]:text-[4rem] max-[426px]:leading-16 md:text-[7rem] lg:text-[10rem] xl:text-[12rem] xl:leading-60 font-medium tracking-tighter md:leading-30 md:text-center max-[426px]:text-center">
-          STORY BEHIND THE CODE
-        </h1>
-      </div>
+      <section className="w-full border-black p-6 sm:p-10 md:p-20 xl:p-32 overflow-hidden">
+      <motion.div
+        variants={containerVars}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        {/* --- TITLE --- */}
+        <div className="flex justify-center items-center mb-16 xl:mb-24">
+          <div className="overflow-hidden text-center">
+            <motion.h1
+              variants={revealVars}
+              className="text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] xl:text-[9rem] font-medium tracking-tighter leading-tight"
+            >
+              STORY BEHIND <br className="hidden md:block" /> THE CODE
+            </motion.h1>
+          </div>
+        </div>
 
-      <div className="anim grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center justify-center gap-10 md:mt-0 lg:mt-10 xl:mt-20">
-        {/* card1 */}
-      <FlipCard
-        title="The Beginning"
-        subtitle="(2021)"
-        technologies={["HTML", "CSS", "JavaScript"]}
-        description="In 2021, I began my journey into web development by creating simple static web pages. This phase focused on mastering the fundamentals of HTML, CSS, and JavaScript."
-      />
+        {/* --- GRID --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+          <motion.div variants={fadeVars}>
+            <FlipCard
+              title="The Beginning"
+              subtitle="(2021)"
+              technologies={["HTML", "CSS", "JavaScript"]}
+              description="In 2021, I began my journey into web development by creating simple static web pages. This phase focused on mastering the fundamentals of HTML, CSS, and JavaScript."
+            />
+          </motion.div>
 
-      <FlipCard 
-      title = "Growth to Full-Stack"
-      subtitle= "(2022–2024)"
-      technologies={["HTML", "CSS", "JavaScript", "PHP", "MySQL"]} 
-      description="From 2022 to early 2024, I continuously improved my skills by building more dynamic and responsive websites. During this period, I transitioned into full-stack development, using HTML, CSS, and JavaScript for the front-end while integrating PHP and MySQL on the back-end to manage data, authentication, and application logic. This stage strengthened my understanding of complete web systems and real-world development workflows."
-      />
+          <motion.div variants={fadeVars}>
+            <FlipCard
+              title="Growth to Full-Stack"
+              subtitle="(2022–2024)"
+              technologies={["HTML", "CSS", "JavaScript", "PHP", "MySQL"]}
+              description="From 2022 to early 2024, I continuously improved my skills by building more dynamic and responsive websites. I transitioned into full-stack development, utilizing PHP and MySQL for backend logic."
+            />
+          </motion.div>
 
-      <FlipCard 
-      title= "Modern Web & App Development"
-      subtitle= "(2024–2025)"
-      technologies={["React.js", "Tailwind", "Flutter", "Dart"]}
-      description= "From 2024 to 2025, I expanded my skill set by adopting modern technologies for both web and mobile development. I started building web applications using React.js and Tailwind CSS to create fast, scalable, and visually modern interfaces, while also developing mobile applications using Flutter and Dart. This stage represents my growth into creating cross-platform, user-centered solutions with a strong focus on performance, design, and usability."
-      />
-      
-      </div>
+          <motion.div variants={fadeVars}>
+            <FlipCard
+              title="Modern Development"
+              subtitle="(2024–2025)"
+              technologies={["React.js", "Tailwind", "Flutter", "Dart"]}
+              description="From 2024 to 2025, I expanded into modern frameworks. I started building scalable web apps with React.js and Tailwind, while also developing cross-platform mobile applications using Flutter."
+            />
+          </motion.div>
+        </div>
+      </motion.div>
+    </section>
     </>
   );
 }

@@ -1,55 +1,87 @@
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+
 function FlipCard({
   title,
   subtitle,
   technologies = [],
   description,
-  width = "w-[350px]",
-  height = "h-[450px]",
-}) {
+  // Note: I removed width/height props because you are using 
+  // responsive Tailwind classes (w-full, h-[450px]) in the JSX below.
+}) { 
+  // --- FIX: Logic must be INSIDE the function body, not the parameter list ---
+  
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  function handleFlip() {
+    if (!isAnimating) {
+      setIsFlipped(!isFlipped);
+      setIsAnimating(true);
+    }
+  }
+
   return (
     <div
-      className={`anim ${width} ${height} max-[426px]:w-[260px] mx-auto 
-      [perspective:1000px] cursor-pointer group`}
+      // Added brackets [] to perspective to ensure it works without custom config
+      className="w-full h-[450px] sm:h-[500px] cursor-pointer [perspective:1000px] group"
+      onMouseEnter={() => setIsFlipped(true)}
+      onMouseLeave={() => setIsFlipped(false)}
+      onClick={handleFlip}
     >
-      <div
-        className="relative w-full h-full
-        transition-transform duration-[600ms]
-        [transform-style:preserve-3d]
-        group-hover:[transform:rotateY(180deg)]"
+      <motion.div
+        initial={false}
+        animate={{ rotateY: isFlipped ? 180 : 0 }}
+        transition={{ duration: 0.6, animationDirection: "normal" }}
+        onAnimationComplete={() => setIsAnimating(false)}
+        // Added brackets [] to transform-style
+        className="relative w-full h-full [transform-style:preserve-3d]"
       >
-        {/* FRONT */}
-        <div
-          className="absolute inset-0 flex flex-col items-center justify-center
-          bg-[#39393f]/40 border p-10 rounded-2xl
-          [backface-visibility:hidden]"
-        >
-          <h1 className="max-[426px]:text-[2.8rem] max-[426px]:leading-14 text-[4rem] tracking-tighter leading-16 font-medium text-center">
-            {title}
-            {subtitle && <br />}
-            {subtitle}
-          </h1>
+        {/* --- FRONT FACE --- */}
+        <div className="absolute inset-0 [backface-visibility:hidden]">
+          <div className="h-full w-full flex flex-col items-center justify-center bg-[#39393f]/5 border border-white/20 p-6 sm:p-10 rounded-[2rem]">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-tight font-medium text-center">
+              {title}
+              {subtitle && (
+                <>
+                  <br />
+                  <span className="text-2xl sm:text-3xl opacity-60">
+                    {subtitle}
+                  </span>
+                </>
+              )}
+            </h1>
 
-          <div className="flex flex-row gap-6 justify-center items-center flex-wrap mt-6">
-            {technologies.map((tech, index) => (
-              <h3 key={index} className="text-gray-500">
-                {tech}
-              </h3>
-            ))}
+            <div className="flex flex-row gap-2 justify-center items-center flex-wrap mt-6 sm:mt-8">
+              {technologies.map((tech, index) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 bg-white border border-black/10 rounded-full text-xs sm:text-sm font-medium text-gray-600"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            {/* Mobile Hint */}
+            <div className="md:hidden absolute bottom-6 text-xs text-gray-400 animate-pulse">
+              Tap to read more
+            </div>
           </div>
         </div>
 
-        {/* BACK */}
+        {/* --- BACK FACE --- */}
         <div
-          className="absolute inset-0 flex items-center justify-center
-          bg-[#f2552e] p-10 rounded-2xl
-          [transform:rotateY(180deg)]
-          [backface-visibility:hidden]"
+          className="absolute inset-0 [backface-visibility:hidden]"
+          style={{ transform: "rotateY(180deg)" }}
         >
-          <p className="text-[1.4rem] text-white">
-            {description}
-          </p>
+          <div className="h-full w-full flex flex-col items-center justify-center bg-[#f2552e] p-6 sm:p-10 rounded-[2rem] text-white">
+            <p className="text-lg sm:text-xl lg:text-2xl text-justify leading-relaxed font-light">
+              {description}
+            </p>
+          </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
