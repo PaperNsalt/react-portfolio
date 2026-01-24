@@ -46,8 +46,8 @@ function MainSection() {
   const headlineTextClasses2 =
     "text-left max-[426px]:text-[4rem] max-[426px]:leading-10 md:text-[7rem] md:leading- lg:text-[12rem] xl:leading-76 font-medium tracking-tighter";
 
-    // --- 1. Animation Variants ---
-  
+  // --- 1. Animation Variants ---
+
   // Staggers the entrance of elements
   const containerVars = {
     initial: {},
@@ -62,127 +62,145 @@ function MainSection() {
   // The "Masked Reveal" effect (slides up from invisible floor)
   const revealVars = {
     initial: { y: "110%" },
-    animate: { 
+    animate: {
       y: "0%",
-      transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } // Custom cubic-bezier for premium feel
-    }
+      transition: { duration: 1, ease: [0.22, 1, 0.36, 1] }, // Custom cubic-bezier for premium feel
+    },
   };
 
   // Simple fade for smaller utility text
   const fadeVars = {
     initial: { opacity: 0 },
-    animate: { 
-      opacity: 1, 
-      transition: { duration: 0.8, delay: 0.5 } 
-    }
+    animate: {
+      opacity: 1,
+      transition: { duration: 0.8, delay: 0.5 },
+    },
   };
 
-  const hugeText = "font-black tracking-tighter leading-[0.85] text-[14vw] md:text-[8rem] lg:text-[10rem] xl:text-[14rem] uppercase";
-  const metaText = "font-mono text-xs md:text-sm tracking-widest uppercase opacity-60";
+  //onscroll animation
+
+  const hugeText =
+    "font-black tracking-tighter leading-[0.85] text-[14vw] md:text-[8rem] lg:text-[10rem] xl:text-[14rem] uppercase";
+  const metaText =
+    "font-mono text-xs md:text-sm tracking-widest uppercase opacity-60";
 
   return (
     <>
       {/* first section */}
       <section className={portfolioSectionBorders}>
-      <motion.div
-        variants={containerVars}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true, margin: "-10%" }}
-        className="max-w-[1800px] mx-auto flex flex-col gap-2 md:gap-0"
-      >
-        
-        {/* --- ROW 1: BEYOND --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center">
-          {/* Wrapper with overflow-hidden is crucial for the 'reveal' effect */}
-          <div className="relative overflow-hidden">
-            <motion.h1 variants={revealVars} className={hugeText}>
-              Beyond
-            </motion.h1>
-          </div>
-        </div>
-
-        {/* --- ROW 2: DESIGN + DATE --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center gap-4 md:gap-0">
-          <div className="relative overflow-hidden">
-            <motion.h1 variants={revealVars} className={hugeText}>
-              Design
-            </motion.h1>
-          </div>
-
-          <motion.div 
-            variants={fadeVars} 
-            className="flex justify-start md:justify-center items-center max-[426px]:justify-center"
-          >
-            <div className="flex items-center gap-3 ">
-              <span className="h-[1px] w-8 bg-stone-900/50"></span>
-              <h2 className={metaText}>2025 — 2026</h2>
+        <motion.div
+          variants={containerVars}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true, margin: "-10%" }}
+          className="max-w-[1800px] mx-auto flex flex-col gap-2 md:gap-0"
+        >
+          {/* --- ROW 1: BEYOND --- */}
+          <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center">
+            {/* Wrapper with overflow-hidden is crucial for the 'reveal' effect */}
+            <div className="relative overflow-hidden">
+              <motion.h1 variants={revealVars} className={hugeText}>
+                Beyond
+              </motion.h1>
             </div>
-          </motion.div>
-        </div>
+          </div>
 
-        {/* --- ROW 3: TAGLINE + INTO --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center gap-4 md:gap-0 mt-4 md:mt-0">
-          {/* Order-2 on mobile so "INTO" comes first if you prefer, or keep as is. Here I kept order: natural */}
-          <motion.div 
-            variants={fadeVars}
-            className="flex justify-start md:justify-center items-center max-[426px]:justify-center"
-          >
-            <div className="border border-stone-900/30 rounded-full px-4 py-2">
-              <h2 className={`${metaText} !opacity-100`}>5 Years of Grinding</h2>
+          {/* --- ROW 2: DESIGN + DATE --- */}
+          <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center gap-4 md:gap-0">
+            <div className="relative overflow-hidden">
+              <motion.h1 variants={revealVars} className={hugeText}>
+                Design
+              </motion.h1>
             </div>
-          </motion.div>
 
-          <div className="relative overflow-hidden flex justify-start md:justify-end max-[426px]:justify-center">
-            <motion.h1 variants={revealVars} className={hugeText}>
-              Into
-            </motion.h1>
+            <motion.div
+              variants={fadeVars}
+              className="flex justify-start md:justify-center items-center max-[426px]:justify-center"
+            >
+              <div className="flex items-center gap-3 ">
+                <span className="h-[1px] w-8 bg-stone-900/50"></span>
+                <h2 className={metaText}>2025 — 2026</h2>
+              </div>
+            </motion.div>
           </div>
-        </div>
 
-        {/* --- ROW 4: EXPERIENCE --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center">
-          {/* Desktop: Column 2. Mobile: Column 1. */}
-          <div className="md:col-start-2 relative overflow-hidden flex justify-start md:justify-end max-[426px]:justify-center">
-             <motion.h1 
-               variants={revealVars} 
-               className={hugeText}
-             >
-              Exp
-            </motion.h1>
+          {/* --- ROW 3: TAGLINE + INTO --- */}
+          <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center gap-4 md:gap-0 mt-4 md:mt-0">
+            {/* Order-2 on mobile so "INTO" comes first if you prefer, or keep as is. Here I kept order: natural */}
+            <motion.div
+              variants={fadeVars}
+              className="flex justify-start md:justify-center items-center max-[426px]:justify-center"
+            >
+              <div className="border border-stone-900/30 rounded-full px-4 py-2">
+                <h2 className={`${metaText} !opacity-100`}>
+                  5 Years of Grinding
+                </h2>
+              </div>
+            </motion.div>
+
+            <div className="relative overflow-hidden flex justify-start md:justify-end max-[426px]:justify-center">
+              <motion.h1 variants={revealVars} className={hugeText}>
+                Into
+              </motion.h1>
+            </div>
           </div>
-        </div>
 
-      </motion.div>
-    </section>
+          {/* --- ROW 4: EXPERIENCE --- */}
+          <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center">
+            {/* Desktop: Column 2. Mobile: Column 1. */}
+            <div className="md:col-start-2 relative overflow-hidden flex justify-start md:justify-end max-[426px]:justify-center">
+              <motion.h1 variants={revealVars} className={hugeText}>
+                Exp
+              </motion.h1>
+            </div>
+          </div>
+        </motion.div>
+      </section>
 
       {/* second section */}
-      <section className="border-e-40 border-b-40 max-[426px]:border-b-20 max-[426px]:border-e-20 xl:p-50 lg:p-30 md:p-20 max-[426px]:px-8 max-[426px]:py-40">
-        <div className="anim grid grid-cols-[repeat(auto-fit,minmax(200px,2fr))] ">
-          <div className="flex flex-col justify-center items-start max-[426px]:order-2">
-            <h1 className="md:self-center lg:text-left lg:self-center xl:self-start text-5x1 max-[426px]:text-[4rem] max-[426px]:leading-20 max-[426px]:self-center max-[426px]:mb-0 md:text-[7rem] lg:text-[14rem] xl:text-[13rem] font-medium tracking-tighter md:leading-28 lg:leading-50 xl:leading-56 mb-4">
-              WHO I AM?
-            </h1>
-            <p className="text-justify text-3xl max-[426px]:text-[1rem] max-[426px]:leading-6 leading-12 md:text-[1rem] md:leading-6 lg:text-2xl lg:leading-10 xl:text-3xl xl:leading-12">
-              Hello there! I'm{" "}
-              <span className="font-semibold border px-[5.1px] py-[1.2px] rounded-full hover:bg-[#f2552e]/80 transition-colors duration-200 hover:text-white hover:border-black">
-                Jeremy Rellama
-              </span>
-              , currently pursuing my Bachelor of Science in Information
-              Technology (BSIT) at Bicol University Polangui. Originally hailing
-              from Camagong, Oas, Albay, I'm deeply passionate about all things
-              related to technology and computer science. Whether it's coding,
-              software development, or exploring the latest tech trends, I'm
-              always eager to dive in and learn more.{" "}
-            </p>
+      <section className="w-full border-r-[20px] border-b-[20px] md:border-r-[30px] md:border-b-[30px] lg:border-r-[40px] lg:border-b-[40px] border-black p-6 sm:p-10 md:p-20 xl:p-32 overflow-hidden">
+        <motion.div
+          className="flex flex-col-reverse lg:flex-row items-center justify-between gap-10 lg:gap-4"
+          variants={containerVars}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {/* TEXT CONTENT */}
+          <div className="flex flex-1 flex-col justify-center items-center lg:items-start text-center lg:text-left w-full">
+            {/* HEADING MASK WRAPPER */}
+            <div className="overflow-hidden mb-6 lg:mb-10">
+              <motion.h1
+                variants={revealVars}
+                className="font-black text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] xl:text-[11rem] 2xl:text-[13rem] tracking-tighter leading-tight whitespace-nowrap"
+              >
+                WHO I AM?
+              </motion.h1>
+            </div>
 
-            <div
-              className="mt-10 
-            flex 
-            gap-2 
-            max-[426px]:gap-1
-            md:gap-4 
-            max-[426px]:mt-8"
+            {/* PARAGRAPH MASK WRAPPER */}
+            <div className="overflow-hidden mb-8 md:mb-12 max-w-4xl">
+              <motion.p
+                variants={revealVars}
+                className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl leading-relaxed lg:leading-normal text-justify"
+              >
+                Hello there! I'm{" "}
+                <span className="font-semibold border px-2 py-0.5 rounded-full hover:bg-[#f2552e]/80 transition-colors duration-200 hover:text-white hover:border-black cursor-pointer inline-block">
+                  Jeremy Rellama
+                </span>
+                , currently pursuing my Bachelor of Science in Information
+                Technology (BSIT) at Bicol University Polangui. Originally
+                hailing from Camagong, Oas, Albay, I'm deeply passionate about
+                all things related to technology and computer science. Whether
+                it's coding, software development, or exploring the latest tech
+                trends, I'm always eager to dive in and learn more.{" "}
+              </motion.p>
+            </div>
+
+            {/* BUTTONS (Using FadeVars for a cleaner entrance) */}
+            <motion.div
+              variants={fadeVars}
+              className="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4"
             >
               <div>
                 <ButtonComponent
@@ -209,20 +227,24 @@ function MainSection() {
                   icon={DownloadIcon}
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="flex justify-center items-center max-[426px]:order-1">
+          {/* IMAGE CONTENT */}
+          <motion.div
+            variants={fadeVars}
+            className="flex flex-1 justify-center items-center w-full"
+          >
             <motion.img
-              whileHover={{ scale: 1.2, y: -2 }}
-              transition={{ type: "spring", stiffness: 500, damping: 20 }}
-              whileTap={{ scale: 0.9, y: 1 }}
-              className="imganim aspect-auto object-cover max-[426px]:size-80 md:size-80 xl:size-200 lg:size-120"
+              whileHover={{ scale: 1.1, y: -5 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              whileTap={{ scale: 0.95 }}
+              className="imganim object-cover w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] xl:w-[35rem] xl:h-[35rem] rounded-full lg:rounded-none shadow-xl lg:shadow-none"
               src={jem}
-              alt="Jeremy rellama"
+              alt="Jeremy Rellama"
             />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* third section */}
