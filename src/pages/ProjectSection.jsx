@@ -8,6 +8,9 @@ import BuGwaCalculator from "../img/Bu Gwa Calculator.png";
 
 import QuickDeal from "../img/QuickDeal.png";
 import CoffeeMadness from "../img/CoffeeMadness.png";
+import Clima from '../img/CLIMA.png';
+import MapCanvas from '../img/MapCanvas.png'
+import QouteSpark from '../img/QouteSpark.png'
 
 function ProjectSection() {
   return (
@@ -61,10 +64,10 @@ function ProjectSection() {
       <ProjectCard
         title="CLIMA"
         description="InspireMe is a mobile application that generates inspirational quotes by fetching data from an external API. Developed using Flutter and Dart, the app delivers a smooth and responsive user experience while dynamically displaying quotes in real time. The project demonstrates API integration, asynchronous data handling, and clean UI design for cross-platform mobile applications."
-        technologies={["Dart", "Flutter"]}
+        technologies={["React.js", "Tailwind CSS", "Framer Motion"]}
         liveLink="https://papernsalt.github.io/clima-weather-app/"
         githubLink="https://github.com/PaperNsalt/clima-weather-app"
-        image={QuizApplication}
+        image={Clima}
         imageAlt="Preview"
       />
 
@@ -84,7 +87,7 @@ function ProjectSection() {
         technologies={["React.js", "Tailwind CSS", "Framer Motion"]}
         liveLink="https://papernsalt.github.io/qoute-generator/#/"
         githubLink="https://github.com/PaperNsalt/qoute-generator"
-        image={StudentManagementSystem}
+        image={QouteSpark}
         imageAlt="Preview"
       />
       
@@ -94,7 +97,7 @@ function ProjectSection() {
         technologies={["React.js", "Tailwind CSS", "Framer Motion"]}
         liveLink="https://papernsalt.github.io/map-canvas/"
         githubLink="https://github.com/PaperNsalt/map-canvas"
-        image={StudentManagementSystem}
+        image={MapCanvas}
         imageAlt="Preview"
       />
 
