@@ -59,11 +59,11 @@ function ProjectSection() {
       />
       
       <ProjectCard
-        title="InspireMe"
+        title="CLIMA"
         description="InspireMe is a mobile application that generates inspirational quotes by fetching data from an external API. Developed using Flutter and Dart, the app delivers a smooth and responsive user experience while dynamically displaying quotes in real time. The project demonstrates API integration, asynchronous data handling, and clean UI design for cross-platform mobile applications."
         technologies={["Dart", "Flutter"]}
-        liveLink="https://your-live-demo.com"
-        githubLink="https://github.com/PaperNsalt/QuoteApp"
+        liveLink="https://papernsalt.github.io/clima-weather-app/"
+        githubLink="https://github.com/PaperNsalt/clima-weather-app"
         image={QuizApplication}
         imageAlt="Preview"
       />
@@ -82,11 +82,22 @@ function ProjectSection() {
         title="QuoteSpark"
         description="QuoteSpark is a modern web application that fetches and displays random inspirational quotes. It features a sleek, responsive interface, allows users to get new quotes instantly, and can integrate with APIs for an endless supply of motivational content."
         technologies={["React.js", "Tailwind CSS", "Framer Motion"]}
-        liveLink="https://your-live-demo.com"
-        githubLink="https://github.com/PaperNsalt/Student-Management-System"
+        liveLink="https://papernsalt.github.io/qoute-generator/#/"
+        githubLink="https://github.com/PaperNsalt/qoute-generator"
         image={StudentManagementSystem}
         imageAlt="Preview"
       />
+      
+      <ProjectCard
+        title="MAPCANVAS"
+        description="QuoteSpark is a modern web application that fetches and displays random inspirational quotes. It features a sleek, responsive interface, allows users to get new quotes instantly, and can integrate with APIs for an endless supply of motivational content."
+        technologies={["React.js", "Tailwind CSS", "Framer Motion"]}
+        liveLink="https://papernsalt.github.io/map-canvas/"
+        githubLink="https://github.com/PaperNsalt/map-canvas"
+        image={StudentManagementSystem}
+        imageAlt="Preview"
+      />
+
 
       <div className="flex justify-start xl:mt-10">
       <ButtonComponent 
