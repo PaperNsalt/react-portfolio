@@ -82,7 +82,7 @@ function MainSection() {
     { title: "CSS", icon: CssIcon },
     { title: "PHP", icon: PhpIcon },
     { title: "JavaScript", icon: JavaScriptIcon },
-    { title: "Flutter", icon: FlutterIcon },
+    { title: "Flter", icon: FlutterIcon },
     { title: "Dart", icon: DartIcon },
     { title: "Tailwind", icon: TailwindIcon },
     { title: "React.JS", icon: ReactIcon },
