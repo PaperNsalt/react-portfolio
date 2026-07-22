@@ -4,17 +4,17 @@ import FooterSocialCard from "./components/FooterSocialCardComponent";
 
 function Footer() {
   return (
-    <footer className="bg-[#f2552e] w-full p-6 sm:p-10 md:p-20 xl:p-32 overflow-hidden">
+    <footer id="contact" className="bg-[#f2552e] w-full p-5 sm:p-8 md:p-12 lg:p-20 xl:p-32 overflow-hidden">
       {/* --- HEADER --- */}
       <div className="flex justify-start items-start mb-8 sm:mb-20">
-        <h1 className="text-left text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] xl:text-[12rem] font-medium tracking-tighter leading-none">
+        <h1 className="text-left text-5xl sm:text-6xl md:text-7xl lg:text-[10rem] xl:text-[12rem] font-medium tracking-tighter leading-none">
           GET IN TOUCH
         </h1>
       </div>
 
       {/* --- GRID --- */}
       {/* Changed: grid-cols-2 on mobile with smaller gap */}
-      <div className="grid grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-8 md:gap-12 xl:gap-20">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 md:gap-10 xl:gap-20">
         <FooterSocialCard
           icon={FacebookIcon}
           platform="FACEBOOK"

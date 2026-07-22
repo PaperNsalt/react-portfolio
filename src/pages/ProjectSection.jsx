@@ -1,113 +1,114 @@
 import ButtonComponent from "../components/ButtonComponent.jsx";
-
 import ProjectCard from "../components/ProjectCard.jsx";
-import QuizApplication from "../img/QuizApplication.png";
-import thebrandcollective from "../img/thebrandcollective.png"
+import thebrandcollective from "../img/thebrandcollective.png";
 import StudentManagementSystem from "../img/Student Management System.png";
 import BuGwaCalculator from "../img/Bu Gwa Calculator.png";
-
 import QuickDeal from "../img/QuickDeal.png";
 import CoffeeMadness from "../img/CoffeeMadness.png";
-import Clima from '../img/CLIMA.png';
-import MapCanvas from '../img/MapCanvas.png'
-import QouteSpark from '../img/QouteSpark.png'
+import Clima from "../img/CLIMA.png";
+import MapCanvas from "../img/MapCanvas.png";
+import QuoteSpark from "../img/QouteSpark.png";
+
+const projects = [
+  {
+    title: "QuickDeal",
+    description:
+      "A customer-to-customer e-commerce platform with authentication, product listings, featured items, and database-driven transactions.",
+    technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
+    liveLink: "https://github.com/PaperNsalt",
+    githubLink: "https://github.com/PaperNsalt/C2C-Ecommerce---Quickdeal",
+    image: QuickDeal,
+  },
+  {
+    title: "thebrandcollective",
+    description:
+      "An online shoe store featuring product catalogs, detailed product pages, and a structured checkout experience for effortless browsing.",
+    technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
+    liveLink: "https://your-live-demo.com",
+    githubLink:
+      "https://github.com/PaperNsalt/Shoes-Ecommerce-Website---thebrandcollective",
+    image: thebrandcollective,
+  },
+  {
+    title: "Student Management System",
+    description:
+      "A web application for managing student records, from registration and updates to secure data retrieval and administrative tasks.",
+    technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
+    liveLink: "https://your-live-demo.com",
+    githubLink: "https://github.com/PaperNsalt/Student-Management-System",
+    image: StudentManagementSystem,
+  },
+  {
+    title: "CLIMA",
+    description:
+      "A responsive weather experience that makes it simple to check changing conditions through a focused, modern interface.",
+    technologies: ["React.js", "Tailwind CSS", "Framer Motion"],
+    liveLink: "https://papernsalt.github.io/clima-weather-app/",
+    githubLink: "https://github.com/PaperNsalt/clima-weather-app",
+    image: Clima,
+  },
+  {
+    title: "GWA Calculator",
+    description:
+      "A simple calculator that lets students add subjects, enter grades and units, and instantly calculate their General Weighted Average.",
+    technologies: ["React.js", "Tailwind CSS"],
+    liveLink: "https://papernsalt.github.io/bu-gwa-calculator/",
+    githubLink: "https://github.com/PaperNsalt/bu-gwa-calculator",
+    image: BuGwaCalculator,
+  },
+  {
+    title: "QuoteSpark",
+    description:
+      "A clean quote generator that fetches fresh inspiration on demand, built for quick and pleasant interactions.",
+    technologies: ["React.js", "Tailwind CSS", "Framer Motion"],
+    liveLink: "https://papernsalt.github.io/qoute-generator/#/",
+    githubLink: "https://github.com/PaperNsalt/qoute-generator",
+    image: QuoteSpark,
+  },
+  {
+    title: "MapCanvas",
+    description:
+      "An interactive map-focused project built to make geographic exploration clear, responsive, and engaging.",
+    technologies: ["React.js", "Tailwind CSS", "Framer Motion"],
+    liveLink: "https://papernsalt.github.io/map-canvas/",
+    githubLink: "https://github.com/PaperNsalt/map-canvas",
+    image: MapCanvas,
+  },
+];
 
 function ProjectSection() {
   return (
-    <section className="border-e-40 border-b-40 xl:p-30 lg:p-16 md:p-10 px-8 py-6 max-[426px]:border-e-20 max-[426px]:border-b-20 md:border-e-40 md:border-b-40">
-      <div className="flex justify-center items-center">
-        <h1 className="anim text-[4rem] md:text-[7rem] xl:text-[14rem] font-medium tracking-tighter xl:leading-50 max-[426px]:leading-18">
-          FEATURED PROJECTS
-        </h1>
+    <section id="projects" className="border-e-[16px] border-b-[16px] px-5 py-14 sm:border-e-[24px] sm:border-b-[24px] sm:px-8 md:border-e-[30px] md:border-b-[30px] md:px-12 md:py-16 lg:border-e-[40px] lg:border-b-[40px] lg:px-16 lg:py-20 xl:px-30 xl:py-28">
+      <header className="mb-12 md:mb-16 xl:mb-20">
+        <p className="text-[1.2rem] font-semibold uppercase tracking-[0.2em] text-black/50 dark:text-white/50">
+          Portfolio / Selected work
+        </p>
+        <div className="mt-5 flex flex-col justify-center items-center gap-6 xl:flex-row xl:items-end xl:justify-between">
+          <h1 className="text-[clamp(4.5rem,12vw,13rem)] font-medium leading-[0.82] tracking-[-0.075em]">
+            FEATURED
+            <br />
+            PROJECTS
+          </h1>
+          <p className="max-w-md text-[1.5rem] leading-relaxed text-black/65 md:text-[1.8rem]">
+            A selection of digital products shaped around useful details and
+            clear user experiences.
+          </p>
+        </div>
+      </header>
+
+      <div>
+        {projects.map((project, index) => (
+          <ProjectCard key={project.title} {...project} index={index} />
+        ))}
       </div>
 
-      <ProjectCard
-        title="QuickDeal"
-        description="QuickDeal is a customer-to-customer (C2C) e-commerce platform that allows users to buy and sell products directly with one another. The system includes user authentication, product listings, featured items, and secure database-driven transactions. It is built using HTML, CSS, JavaScript, PHP, and MySQL, focusing on usability, responsiveness, and efficient data management."
-        technologies={["HTML", "CSS", "JavaScript", "PHP", "MySQL"]}
-        liveLink="https://github.com/PaperNsalt"
-        githubLink="https://github.com/PaperNsalt/C2C-Ecommerce---Quickdeal"
-        image={QuickDeal}
-        imageAlt="Preview"
-      />
-
-      <ProjectCard
-        title="thebrandcollective"
-        description="TheBrandCollective is an e-commerce website dedicated to selling branded shoes through a clean and modern online shopping experience. The platform features product catalogs, detailed product pages, and a structured checkout flow. Developed with HTML, CSS, JavaScript, PHP, and MySQL, the project emphasizes organized product management, responsive design, and smooth user interaction."
-        technologies={["HTML", "CSS", "PHP", "MySQL", "JavaScript"]}
-        liveLink="https://your-live-demo.com"
-        githubLink="https://github.com/PaperNsalt/Shoes-Ecommerce-Website---thebrandcollective"
-        image={thebrandcollective}
-        imageAlt="Preview"
-      />
-
-      <ProjectCard
-        title="CoffeeMadness"
-        description="CoffeeMadness is a coffee shop website designed to showcase products, menus, and brand identity in an engaging way. The website highlights coffee selections, promotions, and store information while maintaining a visually appealing and user-friendly layout. It was developed using HTML, CSS, JavaScript, PHP, and MySQL, with a focus on design consistency and interactive elements."
-        technologies={["HTML", "CSS", "PHP", "MySQL", "JavaScript"]}
-        liveLink="https://your-live-demo.com"
-        githubLink="https://github.com/PaperNsalt/CoffeeMadness"
-        image={CoffeeMadness}
-        imageAlt="Preview"
-      />
-
-      <ProjectCard
-        title="Student Management System"
-        description="The Student Management System is a web-based application that manages student records, including registration, updates, and data retrieval. It allows administrators to efficiently handle student information through a structured and secure system. Built using HTML, CSS, JavaScript, PHP, and MySQL, the project focuses on CRUD operations, data integrity, and administrative functionality."
-        technologies={["HTML", "CSS", "PHP", "MySQL", "JavaScript"]}
-        liveLink="https://your-live-demo.com"
-        githubLink="https://github.com/PaperNsalt/Student-Management-System"
-        image={StudentManagementSystem}
-        imageAlt="Preview"
-      />
-      
-      <ProjectCard
-        title="CLIMA"
-        description="InspireMe is a mobile application that generates inspirational quotes by fetching data from an external API. Developed using Flutter and Dart, the app delivers a smooth and responsive user experience while dynamically displaying quotes in real time. The project demonstrates API integration, asynchronous data handling, and clean UI design for cross-platform mobile applications."
-        technologies={["React.js", "Tailwind CSS", "Framer Motion"]}
-        liveLink="https://papernsalt.github.io/clima-weather-app/"
-        githubLink="https://github.com/PaperNsalt/clima-weather-app"
-        image={Clima}
-        imageAlt="Preview"
-      />
-
-      <ProjectCard
-        title="GWA Calculator"
-        description="The GWA Calculator is a web-based application that helps students compute their **General Weighted Average (GWA)** easily and accurately. Users can dynamically add or remove subjects, input grades and units, and instantly see their computed GWA with a clean and modern interface."
-        technologies={["React.js", "Tailwind CSS"]}
-        liveLink="https://papernsalt.github.io/bu-gwa-calculator/"
-        githubLink="https://github.com/PaperNsalt/bu-gwa-calculator"
-        image={BuGwaCalculator}
-        imageAlt="Preview"
-      />
-
-        <ProjectCard
-        title="QuoteSpark"
-        description="QuoteSpark is a modern web application that fetches and displays random inspirational quotes. It features a sleek, responsive interface, allows users to get new quotes instantly, and can integrate with APIs for an endless supply of motivational content."
-        technologies={["React.js", "Tailwind CSS", "Framer Motion"]}
-        liveLink="https://papernsalt.github.io/qoute-generator/#/"
-        githubLink="https://github.com/PaperNsalt/qoute-generator"
-        image={QouteSpark}
-        imageAlt="Preview"
-      />
-      
-      <ProjectCard
-        title="MAPCANVAS"
-        description="QuoteSpark is a modern web application that fetches and displays random inspirational quotes. It features a sleek, responsive interface, allows users to get new quotes instantly, and can integrate with APIs for an endless supply of motivational content."
-        technologies={["React.js", "Tailwind CSS", "Framer Motion"]}
-        liveLink="https://papernsalt.github.io/map-canvas/"
-        githubLink="https://github.com/PaperNsalt/map-canvas"
-        image={MapCanvas}
-        imageAlt="Preview"
-      />
-
-
-      <div className="flex justify-start xl:mt-10">
-      <ButtonComponent 
-      href="https://github.com/PaperNsalt?tab=repositories"
-      label="Project Archive"
-      newTab
-      />
+      <div className="mt-5 md:mt-10">
+        <ButtonComponent
+          href="https://github.com/PaperNsalt?tab=repositories"
+          label="Project Archive"
+          newTab
+          download={false}
+        />
       </div>
     </section>
   );

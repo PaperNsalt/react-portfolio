@@ -1,7 +1,5 @@
-import ButtonComponent from "../components/ButtonComponent.jsx";
-import { GithubIcon, LiveDemoIcon } from "./IconComponent.jsx";
-import { LinkedInIcon } from "./IconComponent.jsx";
-
+import ButtonComponent from "./ButtonComponent.jsx";
+import { LiveDemoIcon } from "./IconComponent.jsx";
 import GithubButton from "./GithubButtonComponent.jsx";
 
 function ProjectCard({
@@ -10,83 +8,79 @@ function ProjectCard({
   technologies,
   image,
   imageAlt,
-
   githubLink,
   liveLink,
+  index,
 }) {
-  const languageCard =
-    "anim xl:text-[4rem] py-2 px-4 border rounded-2xl bg-white";
-  const buttonCard =
-    "anim xl:text-[1.4rem] py-2 px-4 border rounded-2xl bg-white flex items-center gap-2 hover:bg-[#f2552e]/80 hover:text-white hover:border-black transition-colors duration-200";
-  const gitButton =
-    "anim xl:text-[1.4rem] py-2 px-4 border-2 border-dashed rounded-2xl flex items-center gap-2 border border-dashed hover:border-solid border-dashed border-black/40 hover:border-black transition-all duration-200";
+  const projectUrl = liveLink || githubLink;
+  const reverseOnDesktop = index % 2 !== 0;
 
   return (
-    <div className="grid xl:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] lg:grid-cols-1 mt-10">
-      {/* TEXT SIDE */}
-      <div className="flex flex-col justify-center items-start xl:p-10 lg:p-0 max-[426px]:order-2 md:order-2 lg:order-2 xl:order-1">
-        <h1 className="anim md:text-[4rem] lg:text-[5rem] font-medium tracking-tighter xl:text-left lg:leading-20 xl:leading-20 max-[426px]:leading-20 max-[426px]:text-[2.8rem]">
+    <article className="group grid gap-8 border-t border-black/15 py-10 first:border-t-0 sm:py-12 md:gap-10 md:py-14 xl:grid-cols-2 xl:items-center xl:gap-16 xl:py-20">
+      <div className={`order-2 ${reverseOnDesktop ? "xl:order-2" : "xl:order-1"}`}>
+        <div className="mb-5 flex items-center gap-3 text-[1.15rem] font-semibold uppercase tracking-[0.2em] text-black/50 dark:text-black/50">
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <span className="h-px w-9 bg-current" />
+          <span className="text-black">Selected work</span>
+        </div>
+        <div className="flex justify-center items-center flex-col">
+        <h2 className="text-balance text-[clamp(3.6rem,13vw,5.5rem)] font-medium leading-[0.88] tracking-[-0.065em] md:text-[5.5rem] xl:text-[7.5rem]">
           {title}
-        </h1>
-
-        <p className="
-        anim 
-        text-left 
-        xl:text-[2rem] 
-        xl:mt-4 lg:mt-4 
-        md:mt-4 
-        md:text-[1.4rem]
-        max-[426px]:mb-6 
-        max-[426px]:text-[1.2rem]">
+        </h2>
+        <p className="mt-5 max-w-2xl text-[1.5rem] leading-relaxed text-black/70 dark:text-white/70 md:text-[1.8rem]">
           {description}
         </p>
+        
 
-        <div className="flex flex-wrap gap-4 xl:mt-6 lg:mt-6 md:mt-6 max-[426px]:mb-6">
-          {technologies.map((tech, index) => (
-            <h3 key={index} className={languageCard}>
-              {tech}
-            </h3>
+        <ul className="mt-7 flex flex-wrap gap-2.5" aria-label={`${title} technologies`}>
+          {technologies.map((technology) => (
+            <li key={technology} className="rounded-full border border-black/15 bg-white/70 px-3.5 py-1.5 text-[1.2rem] font-medium text-black/70 shadow-sm dark:border-black/20 dark:bg-white/10  md:text-[1.35rem]">
+              {technology}
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <div
-          className="
-        anim
-        flex 
-        gap-4 
-        xl:mt-6
-        lg:mt-6
-        md:mt-6
-        max-[426px]:mb-10
-        "
-        >
-          {liveLink && (
-            <ButtonComponent
-              href={liveLink}
-              label="Live Demo"
-              newTab
-              download={false}
-              icon={LiveDemoIcon}
-            />
-          )}
-
+        <div className="mt-8 flex flex-wrap gap-3">
+          {liveLink && <ButtonComponent href={liveLink} label="Live Demo" newTab download={false} icon={LiveDemoIcon} />}
           {githubLink && <GithubButton href={githubLink} />}
         </div>
       </div>
-
-      {/* IMAGE / PREVIEW SIDE */}
-      <div className="xl:p-10 flex justify-center items-center rounded-3xl mt-10 max-[426px]:order-1 md:order-1 lg:order-1 xl:order-2">
-        {image ? (
-          <img
-            src={image}
-            alt={imageAlt || title}
-            className=" anim w-full h-full object-cover rounded-2xl border-2"
-          />
-        ) : (
-          <span className="text-xl opacity-50">No Preview</span>
-        )}
+</div>
+      <div className={`order-1 ${reverseOnDesktop ? "xl:order-1" : "xl:order-2"}`}>
+        <div className="relative overflow-hidden rounded-[2rem] border border-black/15 bg-black/5 p-2 shadow-[0_20px_50px_-26px_rgba(0,0,0,0.55)] transition duration-500 ease-out group-hover:-translate-y-2 group-hover:shadow-[0_30px_65px_-24px_rgba(0,0,0,0.65)] group-focus-within:-translate-y-2 dark:border-white/15 dark:bg-white/5 md:p-3">
+          {image ? (
+            <>
+              <img
+                src={image}
+                alt={imageAlt || `${title} project preview`}
+                className="aspect-[16/10] w-full rounded-[1.45rem] object-cover transition duration-700 ease-out group-hover:scale-[1.05] group-focus-within:scale-[1.05]"
+              />
+              {projectUrl && (
+                <a
+                  href={projectUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open ${title} ${liveLink ? "live demo" : "GitHub repository"}`}
+                  className="absolute inset-2 flex items-end rounded-[1.45rem] focus:outline-none md:inset-3"
+                >
+                  <div className="w-full translate-y-full rounded-t-[1.35rem] bg-[#f2552e]/95 px-5 py-5 text-white shadow-2xl transition duration-500 ease-out group-hover:translate-y-0 group-focus-within:translate-y-0 md:px-7 md:py-6">
+                    <div className="flex items-center justify-between gap-4">
+                      <div>
+                        <p className="text-[1.1rem] font-semibold uppercase tracking-[0.18em] text-white/60">Open project</p>
+                        <p className="mt-1 text-[1.8rem] font-medium tracking-tight md:text-[2.2rem]">{title}</p>
+                      </div>
+                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#f2552e] text-[2rem] transition-transform duration-300 group-hover:rotate-45 group-focus-within:rotate-45" aria-hidden="true">↗</span>
+                    </div>
+                  </div>
+                </a>
+              )}
+            </>
+          ) : (
+            <div className="flex aspect-[16/10] items-center justify-center rounded-[1.45rem] text-[1.5rem] text-black/50 dark:text-white/50">Preview coming soon</div>
+          )}
+        </div>
       </div>
-    </div>
+    </article>
   );
 }
 

@@ -23,7 +23,9 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // JSX member expressions such as <motion.div /> are not recognized by
+      // the base ESLint JSX visitor used in this lightweight configuration.
+      'no-unused-vars': ['error', { varsIgnorePattern: '^(?:[A-Z_]|motion)' }],
     },
   },
 ])

@@ -24,7 +24,7 @@ function FlipCard({
   return (
     <div
       // Added brackets [] to perspective to ensure it works without custom config
-      className="w-full h-[450px] sm:h-[500px] cursor-pointer [perspective:1000px] group"
+      className="w-full h-[420px] sm:h-[460px] md:h-[480px] cursor-pointer [perspective:1000px] group"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
       onClick={handleFlip}

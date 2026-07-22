@@ -11,7 +11,7 @@ const FooterSocialCard = ({ icon, platform, username, url }) => {
       whileTap={{ scale: 0.95 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       // LAYOUT: flex-col on mobile (Icon Top), flex-row on desktop (Icon Left)
-      className="flex flex-col md:flex-row items-start gap-3 sm:gap-6 xl:gap-8 group cursor-pointer"
+      className="flex flex-col lg:flex-row items-start gap-3 sm:gap-5 xl:gap-8 group cursor-pointer"
     >
       {/* --- ICON WRAPPER --- */}
       {/* Smaller icon on mobile to fit the tight grid */}
@@ -31,13 +31,13 @@ const FooterSocialCard = ({ icon, platform, username, url }) => {
         {/* Username Badge */}
         <div className="
           border border-black rounded-lg md:rounded-full 
-          px-2 py-1 sm:px-5 sm:py-2 
-          w-full md:w-auto
-          text-[0.65rem] sm:text-lg md:text-xl xl:text-3xl 
+          px-3 py-1.5 sm:px-4 sm:py-2 
+          w-full lg:w-auto
+          text-[1.1rem] sm:text-[1.25rem] md:text-[1.4rem] xl:text-3xl 
           tracking-tight font-medium
           bg-transparent group-hover:bg-white group-hover:border-white group-hover:text-[#f2552e] 
           transition-all duration-300
-          break-all md:break-normal text-center md:text-left
+          break-all lg:break-normal text-center lg:text-left
         ">
           {username}
         </div>

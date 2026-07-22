@@ -1,5 +1,5 @@
 import FlipCard from "./FlipCardComponent";
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 
 function StoryCard() {
@@ -31,7 +31,7 @@ function StoryCard() {
   };
   return (
     <>
-      <section className="w-full border-black p-6 sm:p-10 md:p-20 xl:p-32 overflow-hidden">
+      <section className="w-full border-black p-0 overflow-hidden">
       <motion.div
         variants={containerVars}
         initial="initial"
@@ -43,7 +43,7 @@ function StoryCard() {
           <div className="overflow-hidden text-center">
             <motion.h1
               variants={revealVars}
-              className="text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] xl:text-[9rem] font-medium tracking-tighter leading-tight"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-[7rem] xl:text-[9rem] font-medium tracking-tighter leading-tight"
             >
               STORY BEHIND <br className="hidden md:block" /> THE CODE
             </motion.h1>

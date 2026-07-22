@@ -1,5 +1,5 @@
 import "../App.css";
-import { motion, scale } from "motion/react";
+import { motion } from "motion/react";
 import React from "react";
 
 import StoryCard from "../components/StoryCard.jsx";
@@ -36,16 +36,9 @@ import "../components/bgChangeColor.js";
 
 function MainSection() {
   const portfolioSectionBorders =
-    "border-t-40 border-s-40 border-b-40 max-[426px]:border-b-20 max-[426px]:border-t-20 max-[426px]:border-s-20 xl:p-30 lg:p-16 md:p-10 max-[426px]:py-50";
+    "border-t-[16px] border-s-[16px] border-b-[16px] border-black px-5 py-16 sm:border-t-[24px] sm:border-s-[24px] sm:border-b-[24px] sm:px-8 sm:py-20 md:border-t-[30px] md:border-s-[30px] md:border-b-[30px] md:px-10 md:py-24 lg:border-t-[40px] lg:border-s-[40px] lg:border-b-[40px] lg:p-16 xl:p-30";
   const portfolioSectionBorders1 =
-    " border-s-40 border-b-40 max-[426px]:border-b-20 max-[426px]:border-s-20 xl:p-30 lg:p-16 md:p-10 max-[426px]:py-50 max-[426px]:px-10";
-  const headlineTextClasses =
-    "text-left max-[426px]:text-[4rem] max-[426px]:leading-10 md:text-[7rem] md:leading- lg:text-[12rem] xl:leading-76 font-medium tracking-tighter";
-  const subHeadlineTextClasses =
-    "text-center text-4xl max-[426px]:text-[.8rem] md:text-[1.4rem] border rounded-full w-auto p-2";
-  const headlineTextClasses2 =
-    "text-left max-[426px]:text-[4rem] max-[426px]:leading-10 md:text-[7rem] md:leading- lg:text-[12rem] xl:leading-76 font-medium tracking-tighter";
-
+    "border-s-[16px] border-b-[16px] border-black px-5 py-16 sm:border-s-[24px] sm:border-b-[24px] sm:px-8 sm:py-20 md:border-s-[30px] md:border-b-[30px] md:px-10 md:py-24 lg:border-s-[40px] lg:border-b-[40px] lg:p-16 xl:p-30";
   // --- 1. Animation Variants ---
 
   // Staggers the entrance of elements
@@ -91,14 +84,14 @@ function MainSection() {
   //onscroll animation
 
   const hugeText =
-    "font-black tracking-tighter leading-[0.85] text-[14vw] md:text-[8rem] lg:text-[10rem] xl:text-[14rem] uppercase";
+    "font-black tracking-tighter leading-[0.85] text-[clamp(3.6rem,14vw,6rem)] md:text-[7rem] lg:text-[10rem] xl:text-[14rem] uppercase";
   const metaText =
     "font-mono text-xs md:text-sm tracking-widest uppercase opacity-60";
 
   return (
     <>
       {/* first section */}
-      <section className={portfolioSectionBorders}>
+      <section id="top" className={`${portfolioSectionBorders} pt-14 sm:pt-20 md:pt-36`}>
         <motion.div
           variants={containerVars}
           initial="initial"
@@ -169,7 +162,7 @@ function MainSection() {
       </section>
 
       {/* second section */}
-      <section className="w-full border-r-[20px] border-b-[20px] md:border-r-[30px] md:border-b-[30px] lg:border-r-[40px] lg:border-b-[40px] border-black p-6 sm:p-10 md:p-20 xl:p-32 overflow-hidden">
+      <section id="about" className="w-full border-r-[16px] border-b-[16px] sm:border-r-[24px] sm:border-b-[24px] md:border-r-[30px] md:border-b-[30px] lg:border-r-[40px] lg:border-b-[40px] border-black p-5 sm:p-8 md:p-12 lg:p-20 xl:p-32 overflow-hidden">
         <motion.div
           className="flex flex-col-reverse lg:flex-row items-center justify-between gap-10 lg:gap-4"
           variants={containerVars}
@@ -183,7 +176,7 @@ function MainSection() {
             <div className="overflow-hidden mb-6 lg:mb-10">
               <motion.h1
                 variants={revealVars}
-                className="font-black text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] xl:text-[11rem] 2xl:text-[13rem] tracking-tighter leading-tight whitespace-nowrap"
+                className="font-black text-5xl sm:text-6xl md:text-7xl lg:text-[9rem] xl:text-[11rem] 2xl:text-[13rem] tracking-tighter leading-tight whitespace-nowrap"
               >
                 WHO I AM?
               </motion.h1>
@@ -250,7 +243,7 @@ function MainSection() {
               whileHover={{ scale: 1.1, y: -5 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               whileTap={{ scale: 0.95 }}
-              className="imganim object-cover w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] xl:w-[35rem] xl:h-[35rem] rounded-full lg:rounded-none shadow-xl lg:shadow-none"
+              className="imganim object-cover w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-[28rem] lg:h-[28rem] xl:w-[35rem] xl:h-[35rem] rounded-full lg:rounded-none shadow-xl lg:shadow-none"
               src={jem}
               alt="Jeremy Rellama"
             />
@@ -259,8 +252,8 @@ function MainSection() {
       </section>
 
       {/* third section */}
-      <section
-        className={`${portfolioSectionBorders1} p-6 sm:p-10 md:p-20 xl:p-32 overflow-hidden`}
+      <section id="skills"
+        className={`${portfolioSectionBorders1} overflow-hidden`}
       >
         <motion.div
           variants={containerVars}
@@ -274,7 +267,7 @@ function MainSection() {
             <div className="overflow-hidden">
               <motion.h1
                 variants={revealVars}
-                className="text-center md:text-left text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-medium tracking-tighter leading-none"
+                className="text-center md:text-left text-5xl sm:text-7xl md:text-7xl lg:text-[10rem] xl:text-[12rem] font-medium tracking-tighter leading-none"
               >
                 SKILLS
               </motion.h1>
@@ -409,7 +402,7 @@ function MainSection() {
       </section>
 
       {/* fourth section */}
-      <section className="w-full border-r-[20px] border-b-[20px] md:border-r-[30px] md:border-b-[30px] lg:border-r-[40px] lg:border-b-[40px] border-black p-6 sm:p-10 md:p-20 xl:p-32 overflow-hidden">
+      <section className="w-full border-r-[16px] border-b-[16px] sm:border-r-[24px] sm:border-b-[24px] md:border-r-[30px] md:border-b-[30px] lg:border-r-[40px] lg:border-b-[40px] border-black p-5 sm:p-8 md:p-12 lg:p-20 xl:p-32 overflow-hidden">
       <motion.div
         variants={containerVars}
         initial="initial"
@@ -421,7 +414,7 @@ function MainSection() {
           <div className="overflow-hidden">
             <motion.h1
               variants={revealVars}
-              className="text-center text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] xl:text-[12rem] font-medium tracking-tighter leading-none"
+              className="text-center text-5xl sm:text-6xl md:text-7xl lg:text-[10rem] xl:text-[12rem] font-medium tracking-tighter leading-none"
             >
               TECH STACKS
             </motion.h1>
@@ -447,10 +440,5 @@ function MainSection() {
     </>
   );
 }
-
-window.addEventListener("scroll", () => {
-  const scrollTop = window.scrollY; // How many pixels scrolled vertically
-  console.log("Scrolled:", scrollTop, "px");
-});
 
 export default MainSection;
