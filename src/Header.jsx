@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { Link } from "react-router-dom";
 import logo from "./assets/vector/IamJem.svg";
 import "./assets/style/header.css";
 
@@ -58,6 +59,7 @@ function Header() {
                 <span className="mr-1.5 text-[#f2552e]">0{index + 1}</span>{label}
               </motion.button>
             ))}
+            <Link to="/gallery" className="ml-2 rounded-xl border border-black/15 bg-white/45 px-3 py-2 text-[1.2rem] font-semibold uppercase tracking-[.12em] text-black/75 transition hover:bg-[#f2552e] hover:text-white lg:px-4">Gallery</Link>
           </div>
         </nav>
       </header>
@@ -77,6 +79,10 @@ function Header() {
                 <p className="text-[1rem] font-bold uppercase tracking-[.18em] text-black/45">Navigate</p>
                 <span className="text-[1rem] font-medium text-[#f2552e]">0{links.findIndex(([, id]) => id === active) + 1 || 0}</span>
               </div>
+              <Link to="/gallery" onClick={() => setIsOpen(false)} className="mb-1 flex min-h-13 items-center justify-between rounded-[1.15rem] bg-[#f2552e] px-4 text-[1.5rem] font-semibold uppercase tracking-[.08em] text-white shadow-sm">
+                <span><span className="mr-3 text-[1.1rem] text-white/65">05</span>Gallery</span>
+                <span>↗</span>
+              </Link>
               {links.map(([label, id], index) => {
                 const isActive = active === id;
                 return (

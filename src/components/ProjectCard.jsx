@@ -27,7 +27,7 @@ function ProjectCard({
         <h2 className="text-balance text-[clamp(3.6rem,13vw,5.5rem)] font-medium leading-[0.88] tracking-[-0.065em] md:text-[5.5rem] xl:text-[7.5rem]">
           {title}
         </h2>
-        <p className="mt-5 max-w-2xl text-[1.5rem] leading-relaxed text-black/70 dark:text-white/70 md:text-[1.8rem]">
+        <p className="mt-5 max-w-2xl text-[1.5rem] leading-relaxed text-black/70 text-center md:text-[1.8rem]">
           {description}
         </p>
         
