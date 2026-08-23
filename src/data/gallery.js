@@ -2,7 +2,6 @@ import hanni from "../img/Hanni.jpg";
 import fantastic4cover from "../img/Fantastic4cover.png";
 import shoheiohtani from "../img/ShoheiOhtani.png";
 import yearbook2024 from "../img/yearbookcover2024.png";
-import grad2025 from '../img/grads-2025.png'
 import lanyard2025 from '../img/THE INDITERS LANYARD 2025 (1) v2 copy.png'
 import christmaspubmat2024 from '../img/Merry-Christmas-PubmatArtboard-2.png'
 import literaryshirt from '../img/Design 3 (Black).png'
@@ -50,15 +49,6 @@ export const galleryWorks = [
     category: "Layout",
     year: "2025",
     image: shoheiohtani,
-    description: "Shohei Ohtani sports layout",
-  },
-
-    {
-    id: "grad2025",
-    title: "2025 Graduation Pubmat",
-    category: "Layout",
-    year: "2025",
-    image: grad2025,
     description: "Shohei Ohtani sports layout",
   },
 

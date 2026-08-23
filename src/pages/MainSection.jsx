@@ -1,17 +1,18 @@
-import "../App.css";
+import { useEffect } from "react";
 import { motion } from "motion/react";
-import React from "react";
-
-import StoryCard from "../components/StoryCard.jsx";
-import SkillCard from "../components/SkillsSectionComponent.jsx";
-import TechCard from "../components/TechCardComponent.jsx";
-
-import ButtonComponent from "../components/ButtonComponent.jsx";
+import Lenis from "lenis";
+import "lenis/dist/lenis.css";
+import ActionLink from "../components/ActionLink";
+import Section from "../components/Section";
+import StoryCard from "../components/StoryCard";
+import SkillCard from "../components/SkillsSectionComponent";
+import ToolkitCard from "../components/ToolkitCard";
+import GridMotion from "../components/GridMotion/GridMotion";
 import {
   DownloadIcon,
-  PhpIcon,
-  LinkedInIcon,
   GithubIcon,
+  LinkedInIcon,
+  PhpIcon,
   HtmlIcon,
   CssIcon,
   JavaScriptIcon,
@@ -19,425 +20,262 @@ import {
   DartIcon,
   TailwindIcon,
   ReactIcon,
-} from "../components/IconComponent.jsx";
-
+} from "../components/IconComponent";
 import cvFile from "../assets/RELLAMA, JEREMY O. CV.pdf";
-
-import jem from "../img/jem.png";
-import Photoshop from "../assets/ps.svg";
-import Affinity from "../assets/Affinity.svg";
-import Illustrator from "../assets/Illustrator.svg";
-import InDesign from "../assets/InDesign.svg";
+import jeremy from "../img/jeremy.jpg";
 import illustration from "../assets/illustration.svg";
 import Layout from "../assets/Layout.svg";
 import WebDev from "../assets/web dev.svg";
+import Clima from "../img/CLIMA.png";
+import QuickDeal from "../img/QuickDeal.png";
+import MapCanvas from "../img/MapCanvas.png";
+import QuoteSpark from "../img/QouteSpark.png";
+import yearbook2024 from "../img/yearbookcover2024.png";
+import fantastic4 from "../img/Fantastic4cover.png";
 
-import "../components/bgChangeColor.js";
+import ProfileCard from "../components/ProfileCard/ProfileCard";
+import LogoLoop from "../components/LogoLoop/LogoLoop";
+
+const techLogos = [
+  { node: <HtmlIcon className="h-full w-auto" />, title: "HTML" },
+  { node: <CssIcon className="h-full w-auto" />, title: "CSS" },
+  { node: <PhpIcon className="h-full w-auto" />, title: "PHP" },
+  { node: <JavaScriptIcon className="h-full w-auto" />, title: "JavaScript" },
+  { node: <FlutterIcon className="h-full w-auto" />, title: "Flutter" },
+  { node: <DartIcon className="h-full w-auto" />, title: "Dart" },
+  { node: <TailwindIcon className="h-full w-auto" />, title: "Tailwind" },
+  { node: <ReactIcon className="h-full w-auto" />, title: "React" },
+];
+
+const capabilities = [
+  {
+    icon: illustration,
+    title: "Illustration",
+    description:
+      "Digital and traditional illustration shaped by strong color, composition, and perspective.",
+  },
+  {
+    icon: WebDev,
+    title: "Web development",
+    description:
+      "Thoughtful, responsive interfaces that make useful digital experiences feel effortless.",
+  },
+  {
+    icon: Layout,
+    title: "Layout design",
+    description:
+      "Clear visual systems that give content hierarchy, rhythm, and a memorable point of view.",
+  },
+];
+
+const motionImages = [
+  Clima,
+  QuickDeal,
+  MapCanvas,
+  QuoteSpark,
+  yearbook2024,
+  fantastic4,
+];
+
+const gridItems = Array.from({ length: 28 }, (_, index) => {
+  const image = motionImages[index % motionImages.length];
+  return <img key={`portfolio-grid-${index}`} src={image} alt="" />;
+});
+
+const reveal = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.55, ease: "easeOut" },
+};
+
+const heroTitleContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const heroLineVariants = {
+  hidden: { y: "110%", opacity: 0, rotateX: 12 },
+  visible: {
+    y: "0%",
+    opacity: 1,
+    rotateX: 0,
+    transition: {
+      duration: 0.9,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
 
 function MainSection() {
-  const portfolioSectionBorders =
-    "border-t-[16px] border-s-[16px] border-b-[16px] border-black px-5 py-16 sm:border-t-[24px] sm:border-s-[24px] sm:border-b-[24px] sm:px-8 sm:py-20 md:border-t-[30px] md:border-s-[30px] md:border-b-[30px] md:px-10 md:py-24 lg:border-t-[40px] lg:border-s-[40px] lg:border-b-[40px] lg:p-16 xl:p-30";
-  const portfolioSectionBorders1 =
-    "border-s-[16px] border-b-[16px] border-black px-5 py-16 sm:border-s-[24px] sm:border-b-[24px] sm:px-8 sm:py-20 md:border-s-[30px] md:border-b-[30px] md:px-10 md:py-24 lg:border-s-[40px] lg:border-b-[40px] lg:p-16 xl:p-30";
-  // --- 1. Animation Variants ---
+  useEffect(() => {
+    const lenis = new Lenis({ smoothWheel: true, duration: 1.2 });
+    let animationFrameId;
 
-  // Staggers the entrance of elements
-  const containerVars = {
-    initial: {},
-    animate: {
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
+    const raf = (time) => {
+      lenis.raf(time);
+      animationFrameId = requestAnimationFrame(raf);
+    };
 
-  // The "Masked Reveal" effect (slides up from invisible floor)
-  const revealVars = {
-    initial: { y: "110%" },
-    animate: {
-      y: "0%",
-      transition: { duration: 1, ease: [0.22, 1, 0.36, 1] }, // Custom cubic-bezier for premium feel
-    },
-  };
+    animationFrameId = requestAnimationFrame(raf);
 
-  // Simple fade for smaller utility text
-  const fadeVars = {
-    initial: { opacity: 0 },
-    animate: {
-      opacity: 1,
-      transition: { duration: 0.8, delay: 0.5 },
-    },
-  };
-
-  const techData = [
-    { title: "HTML", icon: HtmlIcon },
-    { title: "CSS", icon: CssIcon },
-    { title: "PHP", icon: PhpIcon },
-    { title: "JavaScript", icon: JavaScriptIcon },
-    { title: "Flter", icon: FlutterIcon },
-    { title: "Dart", icon: DartIcon },
-    { title: "Tailwind", icon: TailwindIcon },
-    { title: "React.JS", icon: ReactIcon },
-  ];
-
-  //onscroll animation
-
-  const hugeText =
-    "font-black tracking-tighter leading-[0.85] text-[clamp(3.6rem,14vw,6rem)] md:text-[7rem] lg:text-[10rem] xl:text-[14rem] uppercase";
-  const metaText =
-    "font-mono text-xs md:text-sm tracking-widest uppercase opacity-60";
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      lenis.destroy();
+    };
+  }, []);
 
   return (
-    <>
-      {/* first section */}
-      <section id="top" className={`${portfolioSectionBorders} pt-14 sm:pt-20 md:pt-36`}>
-        <motion.div
-          variants={containerVars}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, margin: "-10%" }}
-          className="max-w-[1800px] mx-auto flex flex-col gap-2 md:gap-0"
-        >
-          {/* --- ROW 1: BEYOND --- */}
-          <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center">
-            {/* Wrapper with overflow-hidden is crucial for the 'reveal' effect */}
-            <div className="relative overflow-hidden text-left max-[426px]:text-center">
-              <motion.h1 variants={revealVars} className={hugeText}>
-                Beyond
-              </motion.h1>
-            </div>
-          </div>
+    <main>
+      <section
+        id="top"
+        className="portfolio-hero relative overflow-hidden px-5 pb-20 pt-32 sm:px-8 md:pb-28 md:pt-40 lg:px-16"
+      >
+        <div className="portfolio-grid-motion" aria-hidden="true">
+          <GridMotion
+            items={gridItems}
+            gradientColor="rgba(242, 85, 46, 0.18)"
+          />
+        </div>
+        <div className="relative z-10 mx-auto max-w-360">
+          <motion.p {...reveal} className="eyebrow text-[#f2552e]">
+            Jeremy Rellama · Designer & developer
+          </motion.p>
 
-          {/* --- ROW 2: DESIGN + DATE --- */}
-          <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center gap-4 md:gap-0">
-            <div className="relative overflow-hidden text-left max-[426px]:text-center">
-              <motion.h1 variants={revealVars} className={hugeText}>
-                Design
-              </motion.h1>
-            </div>
-
-            <motion.div
-              variants={fadeVars}
-              className="flex justify-start md:justify-center items-center max-[426px]:justify-center"
-            >
-              <div className="flex items-center gap-3 ">
-                <span className="h-[1px] w-8 bg-stone-900/50"></span>
-                <h2 className={metaText}>2025 — 2026</h2>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* --- ROW 3: TAGLINE + INTO --- */}
-          <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center gap-4 md:gap-0 mt-4 md:mt-0">
-            {/* Order-2 on mobile so "INTO" comes first if you prefer, or keep as is. Here I kept order: natural */}
-            <motion.div
-              variants={fadeVars}
-              className="flex justify-start md:justify-center items-center max-[426px]:justify-center"
-            >
-              <div className="border border-stone-900/30 rounded-full px-4 py-2">
-                <h2 className={`${metaText} !opacity-100`}>
-                  5 Years of Grinding
-                </h2>
-              </div>
-            </motion.div>
-
-            <div className="relative overflow-hidden flex justify-start md:justify-end max-[426px]:justify-center text-right">
-              <motion.h1 variants={revealVars} className={hugeText}>
-                Into
-              </motion.h1>
-            </div>
-          </div>
-
-          {/* --- ROW 4: EXPERIENCE --- */}
-          <div className="grid grid-cols-1 md:grid-cols-2 md:h-[180px] items-center">
-            {/* Desktop: Column 2. Mobile: Column 1. */}
-            <div className="md:col-start-2 relative overflow-hidden flex justify-start md:justify-end max-[426px]:justify-center text-right">
-              <motion.h1 variants={revealVars} className={hugeText}>
-                Exp
-              </motion.h1>
-            </div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* second section */}
-      <section id="about" className="w-full border-r-[16px] border-b-[16px] sm:border-r-[24px] sm:border-b-[24px] md:border-r-[30px] md:border-b-[30px] lg:border-r-[40px] lg:border-b-[40px] border-black p-5 sm:p-8 md:p-12 lg:p-20 xl:p-32 overflow-hidden">
-        <motion.div
-          className="flex flex-col-reverse lg:flex-row items-center justify-between gap-10 lg:gap-4"
-          variants={containerVars}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          {/* TEXT CONTENT */}
-          <div className="flex flex-1 flex-col justify-center items-center lg:items-start text-center lg:text-left w-full">
-            {/* HEADING MASK WRAPPER */}
-            <div className="overflow-hidden mb-6 lg:mb-10">
-              <motion.h1
-                variants={revealVars}
-                className="font-black text-5xl sm:text-6xl md:text-7xl lg:text-[9rem] xl:text-[11rem] 2xl:text-[13rem] tracking-tighter leading-tight whitespace-nowrap"
-              >
-                WHO I AM?
-              </motion.h1>
-            </div>
-
-            {/* PARAGRAPH MASK WRAPPER */}
-            <div className="overflow-hidden mb-8 md:mb-12 max-w-4xl">
-              <motion.p
-                variants={revealVars}
-                className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl leading-relaxed lg:leading-normal text-justify"
-              >
-                Hello there! I'm{" "}
-                <span className="font-semibold border px-2 py-0.5 rounded-full hover:bg-[#f2552e]/80 transition-colors duration-200 hover:text-white hover:border-black cursor-pointer inline-block">
-                  Jeremy Rellama
-                </span>
-                , currently pursuing my Bachelor of Science in Information
-                Technology (BSIT) at Bicol University Polangui. Originally
-                hailing from Camagong, Oas, Albay, I'm deeply passionate about
-                all things related to technology and computer science. Whether
-                it's coding, software development, or exploring the latest tech
-                trends, I'm always eager to dive in and learn more.{" "}
-              </motion.p>
-            </div>
-
-            {/* BUTTONS (Using FadeVars for a cleaner entrance) */}
-            <motion.div
-              variants={fadeVars}
-              className="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4"
-            >
-              <div>
-                <ButtonComponent
-                  href="https://github.com/PaperNsalt"
-                  label="Github"
-                  newTab
-                  icon={GithubIcon}
-                />
-              </div>
-
-              <div>
-                <ButtonComponent
-                  href="https://www.linkedin.com/in/jeremy-rellama-39292a339/"
-                  label="LinkedIn"
-                  newTab
-                  icon={LinkedInIcon}
-                />
-              </div>
-
-              <div>
-                <ButtonComponent
-                  href={cvFile}
-                  label="DownloadCV"
-                  icon={DownloadIcon}
-                />
-              </div>
-            </motion.div>
-          </div>
-
-          {/* IMAGE CONTENT */}
-          <motion.div
-            variants={fadeVars}
-            className="flex flex-1 justify-center items-center w-full"
+          <motion.h1
+            variants={heroTitleContainer}
+            initial="hidden"
+            animate="visible"
+            className="mt-5 max-w-6xl text-[clamp(4.4rem,13vw,13rem)] font-semibold leading-[.78] tracking-[-.09em] [perspective:1000px]"
           >
-            <motion.img
-              whileHover={{ scale: 1.1, y: -5 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              whileTap={{ scale: 0.95 }}
-              className="imganim object-cover w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-[28rem] lg:h-[28rem] xl:w-[35rem] xl:h-[35rem] rounded-full lg:rounded-none shadow-xl lg:shadow-none"
-              src={jem}
-              alt="Jeremy Rellama"
-            />
-          </motion.div>
-        </motion.div>
-      </section>
+            <span className="block pb-3 -mb-3">
+              <motion.span variants={heroLineVariants} className="block origin-bottom-left">
+                Beyond
+              </motion.span>
+            </span>
+            <span className="block pb-3 -mb-3">
+              <motion.span variants={heroLineVariants} className="block origin-bottom-left">
+                design.
+              </motion.span>
+            </span>
+            <span className="block pb-3 -mb-3">
+              <motion.span variants={heroLineVariants} className="block origin-bottom-left">
+                <span className="text-[#f2552e]">Into</span> experience.
+              </motion.span>
+            </span>
+          </motion.h1>
 
-      {/* third section */}
-      <section id="skills"
-        className={`${portfolioSectionBorders1} overflow-hidden`}
-      >
-        <motion.div
-          variants={containerVars}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, margin: "-100px" }}
-          className="w-full"
-        >
-          {/* --- TITLE --- */}
-          <div className="flex justify-center md:justify-start xl:justify-center items-center mb-16 md:mb-24">
-            <div className="overflow-hidden">
-              <motion.h1
-                variants={revealVars}
-                className="text-center md:text-left text-5xl sm:text-7xl md:text-7xl lg:text-[10rem] xl:text-[12rem] font-medium tracking-tighter leading-none"
-              >
-                SKILLS
-              </motion.h1>
+          <motion.div
+            {...reveal}
+            className="mt-20 flex flex-col justify-between gap-6 border-t border-black/15 pt-5 sm:flex-row sm:items-end"
+          >
+            <p className="max-w-md text-lg leading-relaxed text-black/65 sm:text-xl">
+              I build digital work where visual craft and practical technology meet.
+            </p>
+            <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[.16em] text-black/45">
+              <span className="h-px w-8 bg-current" /> Based in Albay, Philippines
             </div>
-          </div>
-
-          {/* --- SKILL CARDS GRID --- */}
-          {/* Responsive: 1 col (mobile) -> 2 cols (tablet) -> 3 cols (desktop) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-12 mb-20">
-            <motion.div variants={fadeVars} className="h-full">
-              <SkillCard
-                icon={illustration}
-                title="Illustration"
-                description={
-                  <>
-                    I possess a comprehensive skill set in{" "}
-                    <span className="font-medium border px-1.5 py-0.5 rounded-full hover:bg-[#f2552e]/80 transition-colors duration-200 hover:text-white hover:border-black cursor-default">
-                      illustration
-                    </span>
-                    , encompassing both traditional and digital techniques. My
-                    expertise includes a strong understanding of color theory,
-                    composition, and perspective.
-                  </>
-                }
-              />
-            </motion.div>
-
-            <motion.div variants={fadeVars} className="h-full">
-              <SkillCard
-                icon={WebDev}
-                title="Web Development"
-                description={
-                  <>
-                    I excel at designing{" "}
-                    <span className="font-medium border px-1.5 py-0.5 rounded-full hover:bg-[#f2552e]/80 transition-colors duration-200 hover:text-white hover:border-black cursor-default">
-                      intuitive
-                    </span>
-                    user interfaces and seamless user experiences, ensuring that
-                    each site is both functional and aesthetically pleasing.
-                  </>
-                }
-              />
-            </motion.div>
-
-            <motion.div variants={fadeVars} className="h-full">
-              <SkillCard
-                icon={Layout}
-                title="Layout"
-                description={
-                  <>
-                    I possess a comprehensive skill set in{" "}
-                    <span className="font-medium border px-1.5 py-0.5 rounded-full hover:bg-[#f2552e]/80 transition-colors duration-200 hover:text-white hover:border-black cursor-default">
-                      layout
-                    </span>
-                    , encompassing both traditional and digital techniques. My
-                    expertise includes color theory, composition, and
-                    perspective.
-                  </>
-                }
-              />
-            </motion.div>
-          </div>
-
-          {/* --- SOFTWARE LOGOS GRID --- */}
-          {/* Responsive: 2 cols (mobile) -> 4 cols (desktop) */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
-            <motion.div
-              variants={fadeVars}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex flex-col md:flex-row gap-4 justify-center items-center p-4"
-            >
-              <img
-                className="w-16 h-16 md:w-20 md:h-20 object-contain"
-                src={Photoshop}
-                alt="Photoshop"
-              />
-              <p className="text-xl md:text-2xl xl:text-4xl tracking-tighter font-medium">
-                Photoshop
-              </p>
-            </motion.div>
-
-            <motion.div
-              variants={fadeVars}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex flex-col md:flex-row gap-4 justify-center items-center p-4"
-            >
-              <img
-                className="w-16 h-16 md:w-20 md:h-20 object-contain rounded-2xl"
-                src={Affinity}
-                alt="Affinity"
-              />
-              <p className="text-xl md:text-2xl xl:text-4xl tracking-tighter font-medium">
-                Affinity
-              </p>
-            </motion.div>
-
-            <motion.div
-              variants={fadeVars}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex flex-col md:flex-row gap-4 justify-center items-center p-4"
-            >
-              <img
-                className="w-16 h-16 md:w-20 md:h-20 object-contain"
-                src={Illustrator}
-                alt="Illustrator"
-              />
-              <p className="text-xl md:text-2xl xl:text-4xl tracking-tighter font-medium">
-                Illustrator
-              </p>
-            </motion.div>
-
-            <motion.div
-              variants={fadeVars}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex flex-col md:flex-row gap-4 justify-center items-center p-4"
-            >
-              <img
-                className="w-16 h-16 md:w-20 md:h-20 object-contain"
-                src={InDesign}
-                alt="InDesign"
-              />
-              <p className="text-xl md:text-2xl xl:text-4xl tracking-tighter font-medium">
-                InDesign
-              </p>
-            </motion.div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </section>
 
-      {/* fourth section */}
-      <section className="w-full border-r-[16px] border-b-[16px] sm:border-r-[24px] sm:border-b-[24px] md:border-r-[30px] md:border-b-[30px] lg:border-r-[40px] lg:border-b-[40px] border-black p-5 sm:p-8 md:p-12 lg:p-20 xl:p-32 overflow-hidden">
-      <motion.div
-        variants={containerVars}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true, margin: "-100px" }}
+      <div className="w-full overflow-hidden">
+        <LogoLoop
+          logos={techLogos}
+          speed={80}
+          direction="left"
+          logoHeight={68}
+          gap={48}
+          scaleOnHover
+          fadeOut
+          fadeOutColor="#f7f5f1"
+          darkFadeOutColor="#121212"
+          ariaLabel="Technology stack horizontal"
+        />
+      </div>
+
+      <Section
+        id="about"
+        eyebrow="01 / About"
+        title="A curious maker with a visual mind."
       >
-        {/* --- TITLE --- */}
-        <div className="flex justify-center items-center mb-16 xl:mb-24">
-          <div className="overflow-hidden">
-            <motion.h1
-              variants={revealVars}
-              className="text-center text-5xl sm:text-6xl md:text-7xl lg:text-[10rem] xl:text-[12rem] font-medium tracking-tighter leading-none"
-            >
-              TECH STACKS
-            </motion.h1>
+        <div className="about-layout flex flex-col items-center justify-between gap-10 lg:flex-row lg:gap-16 xl:gap-20">
+          <motion.div {...reveal} className="w-full lg:max-w-2xl xl:max-w-3xl">
+            <p className="text-lg leading-relaxed text-black/70 sm:text-xl md:text-2xl">
+              I’m Jeremy Rellama, an graduate IT student at Bicol University
+              Polangui. I enjoy turning a good idea into something people can
+              actually use from the interface details to the code behind them.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <ActionLink
+                href="https://github.com/PaperNsalt"
+                newTab
+                icon={GithubIcon}
+              >
+                GitHub
+              </ActionLink>
+              <ActionLink
+                href="https://www.linkedin.com/in/jeremy-rellama-39292a339/"
+                newTab
+                icon={LinkedInIcon}
+                variant="secondary"
+              >
+                LinkedIn
+              </ActionLink>
+              <ActionLink
+                href={cvFile}
+                download
+                icon={DownloadIcon}
+                variant="secondary"
+              >
+                Download CV
+              </ActionLink>
+            </div>
+          </motion.div>
+
+          <div className="w-full flex justify-center lg:w-auto">
+            <ProfileCard
+              name="Jeremy Rellama"
+              title="Web Developer"
+              handle="saltnpaper"
+              status="Online"
+              contactText="Contact Me"
+              avatarUrl={jeremy}
+              showUserInfo={false}
+              behindGlowEnabled
+              className="w-full max-w-sm lg:max-w-none"
+            />
           </div>
         </div>
+      </Section>
 
-        {/* --- GRID --- */}
-        {/* Responsive: 2 cols (mobile) -> 3 cols (tablet) -> 4 cols (desktop) */}
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-10">
-          {techData.map((tech, index) => (
-            <motion.div key={index} variants={fadeVars}>
-              <TechCard title={tech.title} icon={tech.icon} />
-            </motion.div>
+      <Section
+        id="skills"
+        eyebrow="02 / Capabilities"
+        title="Designed to be seen. Built to be used."
+      >
+        <div className="grid gap-4 md:grid-cols-3">
+          {capabilities.map((item) => (
+            <SkillCard key={item.title} {...item} />
           ))}
         </div>
-      </motion.div>
-    </section>
+      </Section>
 
-      {/* fifth section */}
-      <section className={portfolioSectionBorders1}>
-        <StoryCard></StoryCard>
-      </section>
-    </>
+      <Section eyebrow="03 / Toolkit" title="Tools I reach for.">
+        <div className="flex flex-col gap-8 py-4">
+          <ToolkitCard />
+        </div>
+      </Section>
+
+      <Section eyebrow="04 / Journey" title="The story behind the code.">
+        <StoryCard />
+      </Section>
+    </main>
   );
 }
 

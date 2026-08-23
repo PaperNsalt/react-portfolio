@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Link } from "react-router-dom";
 import logo from "./assets/vector/IamJem.svg";
+import ThemeToggle from "./components/ThemeToggle";
 import "./assets/style/header.css";
 
 const links = [
@@ -60,6 +61,7 @@ function Header() {
               </motion.button>
             ))}
             <Link to="/gallery" className="ml-2 rounded-xl border border-black/15 bg-white/45 px-3 py-2 text-[1.2rem] font-semibold uppercase tracking-[.12em] text-black/75 transition hover:bg-[#f2552e] hover:text-white lg:px-4">Gallery</Link>
+            <ThemeToggle className="ml-2" />
           </div>
         </nav>
       </header>

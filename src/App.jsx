@@ -1,13 +1,24 @@
+import { lazy, Suspense } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./App.css";
 import MainSection from "./pages/MainSection";
-import ProjectSection from "./pages/ProjectSection";
-import Gallery from "./pages/Gallery";
+
+const Gallery = lazy(() => import("./pages/Gallery"));
+const ProjectSection = lazy(() => import("./pages/ProjectSection"));
 
 function Portfolio() {
-  return <><Header /><MainSection /><ProjectSection /><Footer /></>;
+  return (
+    <>
+      <Header />
+      <MainSection />
+      <Suspense fallback={<div className="section-loading">Loading projects…</div>}>
+        <ProjectSection />
+      </Suspense>
+      <Footer />
+    </>
+  );
 }
 
 function App() {
@@ -15,7 +26,14 @@ function App() {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Portfolio />} />
-        <Route path="/gallery" element={<Gallery />} />
+        <Route
+          path="/gallery"
+          element={
+            <Suspense fallback={<main className="page-loading">Loading gallery…</main>}>
+              <Gallery />
+            </Suspense>
+          }
+        />
       </Routes>
     </HashRouter>
   );

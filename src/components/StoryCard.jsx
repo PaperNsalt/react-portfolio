@@ -1,6 +1,5 @@
 import FlipCard from "./FlipCardComponent";
-import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 function StoryCard() {
   const containerVars = {
@@ -13,14 +12,6 @@ function StoryCard() {
     },
   };
 
-  const revealVars = {
-    initial: { y: "110%" },
-    animate: {
-      y: "0%",
-      transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
-    },
-  };
-
   const fadeVars = {
     initial: { opacity: 0, y: 30 },
     animate: {
@@ -29,28 +20,15 @@ function StoryCard() {
       transition: { duration: 0.8, ease: "easeOut" },
     },
   };
+
   return (
-    <>
-      <section className="w-full border-black p-0 overflow-hidden">
+    <div>
       <motion.div
         variants={containerVars}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true, margin: "-100px" }}
       >
-        {/* --- TITLE --- */}
-        <div className="flex justify-center items-center mb-16 xl:mb-24">
-          <div className="overflow-hidden text-center">
-            <motion.h1
-              variants={revealVars}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-[7rem] xl:text-[9rem] font-medium tracking-tighter leading-tight"
-            >
-              STORY BEHIND <br className="hidden md:block" /> THE CODE
-            </motion.h1>
-          </div>
-        </div>
-
-        {/* --- GRID --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           <motion.div variants={fadeVars}>
             <FlipCard
@@ -80,8 +58,7 @@ function StoryCard() {
           </motion.div>
         </div>
       </motion.div>
-    </section>
-    </>
+    </div>
   );
 }
 
