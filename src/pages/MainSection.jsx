@@ -26,12 +26,12 @@ import jeremy from "../img/jeremy.jpg";
 import illustration from "../assets/illustration.svg";
 import Layout from "../assets/Layout.svg";
 import WebDev from "../assets/web dev.svg";
-import Clima from "../img/CLIMA.png";
-import QuickDeal from "../img/QuickDeal.png";
-import MapCanvas from "../img/MapCanvas.png";
-import QuoteSpark from "../img/QouteSpark.png";
-import yearbook2024 from "../img/yearbookcover2024.png";
-import fantastic4 from "../img/Fantastic4cover.png";
+import Shohei from '../img/art/Shohei Ohtani.png';
+import Radiohead from '../img/art/radiohead.png'
+import MapCanvas from "../img/Web/MapCanvas.png";
+import merry from '../img/art/Merry-Christmas-PubmatArtboard-2.png';
+import yearbook from "../img/art/yearbookArtBoard3.png";
+import fantastic4 from "../img/art/F4Cover.png";
 
 import ProfileCard from "../components/ProfileCard/ProfileCard";
 import LogoLoop from "../components/LogoLoop/LogoLoop";
@@ -69,11 +69,11 @@ const capabilities = [
 ];
 
 const motionImages = [
-  Clima,
-  QuickDeal,
+  Shohei,
+  Radiohead,
   MapCanvas,
-  QuoteSpark,
-  yearbook2024,
+  merry,
+  yearbook,
   fantastic4,
 ];
 

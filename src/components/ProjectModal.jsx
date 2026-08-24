@@ -1,11 +1,12 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-
-const ExternalLinkIcon = ({ className = "h-4 w-4" }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-  </svg>
-);
+import {
+  ChevronLeft,
+  ChevronRight,
+  X,
+  ExternalLink,
+  CheckCircle2,
+} from "lucide-react";
 
 const GithubIcon = ({ className = "h-4 w-4" }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -13,35 +14,66 @@ const GithubIcon = ({ className = "h-4 w-4" }) => (
   </svg>
 );
 
-const CheckCircleIcon = ({ className = "h-5 w-5" }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-);
-
 export default function ProjectModal({ project, onClose }) {
   const [activeImage, setActiveImage] = useState({ project: null, index: 0 });
+  const [scrollProgress, setScrollProgress] = useState(0);
+  
+  const mobileScrollRef = useRef(null);
+  const desktopScrollRef = useRef(null);
+  const thumbnailTrackRef = useRef(null);
   const titleId = useId();
 
-  const images = (project?.images?.length ? project.images : [project?.image]).filter(Boolean);
+  const images = (
+    project?.images?.length ? project.images : [project?.image]
+  ).filter(Boolean);
 
-  const activeImageIdx = activeImage.project === project ? activeImage.index : 0;
+  const activeImageIdx =
+    activeImage.project === project ? activeImage.index : 0;
 
+  // Lock background scrolling and handle Escape key
   useEffect(() => {
     if (!project) return undefined;
+
+    const originalStyle = window.getComputedStyle(document.body).overflow;
+    document.body.style.overflow = "hidden";
+
     const onKeyDown = (event) => event.key === "Escape" && onClose();
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalStyle;
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [project, onClose]);
 
+  // Dynamic Scroll Indicator Handler
+  const handleScroll = (e) => {
+    const target = e.currentTarget;
+    if (!target) return;
+    const { scrollTop, scrollHeight, clientHeight } = target;
+    const totalScroll = scrollHeight - clientHeight;
+    if (totalScroll > 0) {
+      setScrollProgress((scrollTop / totalScroll) * 100);
+    } else {
+      setScrollProgress(100);
+    }
+  };
+
   const setImageIndex = (index) => setActiveImage({ project, index });
-  const previous = () => setImageIndex((activeImageIdx - 1 + images.length) % images.length);
+  const previous = () =>
+    setImageIndex((activeImageIdx - 1 + images.length) % images.length);
   const next = () => setImageIndex((activeImageIdx + 1) % images.length);
+
+  const scrollThumbnails = (direction) => {
+    if (!thumbnailTrackRef.current) return;
+    const amount = direction === "left" ? -150 : 150;
+    thumbnailTrackRef.current.scrollBy({ left: amount, behavior: "smooth" });
+  };
 
   return (
     <AnimatePresence>
       {project && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 lg:p-8">
           {/* Backdrop */}
           <motion.button
             type="button"
@@ -50,7 +82,7 @@ export default function ProjectModal({ project, onClose }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 cursor-default bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 cursor-default bg-black/70 backdrop-blur-md"
           />
 
           {/* Modal Container */}
@@ -63,45 +95,58 @@ export default function ProjectModal({ project, onClose }) {
             aria-modal="true"
             aria-labelledby={titleId}
             className="
-              project-modal relative z-10 max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-3xl
-              /* Light Mode Design */
-              border border-black/10 bg-[#f7f5f1] text-[#151515] shadow-2xl
-              /* Dark Mode Design */
-              dark:border-white/20 dark:bg-[#121216] dark:text-white dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)]
+              project-modal relative z-10 flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl sm:rounded-[1.75rem]
+              border border-black/15 bg-[#f7f5f1] text-[#151515] shadow-2xl
+              dark:border-white/15 dark:bg-[#0c0d10] dark:text-white dark:shadow-[0_20px_60px_rgba(0,0,0,0.8)]
             "
           >
-            {/* Header */}
-            <header className="flex items-start justify-between border-b border-black/10 p-6 sm:p-8 dark:border-white/10">
+            {/* Dynamic Glowing Top Scroll Bar */}
+            <div
+              className="absolute left-0 top-0 z-30 h-[3px] rounded-tl-[1.75rem] bg-gradient-to-r from-[#f2552e] via-[#f2552e] to-transparent shadow-[0_0_12px_#f2552e] transition-all duration-150 ease-out"
+              style={{ width: `${Math.max(scrollProgress, 8)}%` }}
+            />
+
+            {/* Modal Header */}
+            <header className="relative flex shrink-0 items-start justify-between border-b border-black/10 px-5 pt-5 pb-4 sm:px-8 sm:pt-7 sm:pb-5 dark:border-white/10">
               <div>
-                <span className="inline-block rounded-full bg-[#f2552e]/10 px-3 py-1 text-[11px] font-bold tracking-wider text-[#f2552e] dark:bg-[#f2552e]/20">
-                  {project.category || "PROJECT SHOWCASE"}
+                <span className="inline-block rounded-full border border-[#f2552e]/30 bg-[#f2552e]/10 px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-[#f2552e] sm:px-3 sm:text-[10px]">
+                  {project.category || "SOFTWARE DEVELOPMENT"}
                 </span>
-                <h2 id={titleId} className="project-modal__title mt-2 text-2xl font-extrabold uppercase tracking-tight sm:text-3xl">
+                <h2
+                  id={titleId}
+                  className="mt-1.5 text-xl font-black uppercase tracking-tight sm:mt-2 sm:text-3xl"
+                >
                   {project.title}
                 </h2>
                 {project.role && (
-                  <p className="project-modal__role mt-1 text-sm font-medium">
-                    Role: <span>{project.role}</span>
+                  <p className="mt-0.5 text-[11px] font-medium text-black/60 sm:mt-1 sm:text-xs dark:text-white/60">
+                    Role: <span className="font-semibold text-black dark:text-white">{project.role}</span>
                   </p>
                 )}
               </div>
-              <button
+
+              {/* Circular Close Button */}
+              <motion.button
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.92 }}
                 type="button"
                 onClick={onClose}
                 aria-label="Close modal"
-                className="
-                  project-modal__close flex h-10 w-10 items-center justify-center rounded-full text-xl shadow-xs transition-transform hover:scale-105 active:scale-95
-                "
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-black/10 bg-black/5 text-black/70 transition-colors hover:border-[#f2552e] hover:bg-[#f2552e] hover:text-white sm:h-9 sm:w-9 dark:border-white/15 dark:bg-white/5 dark:text-white/70 dark:hover:border-[#f2552e] dark:hover:bg-[#f2552e] dark:hover:text-white"
               >
-                &times;
-              </button>
+                <X className="h-4 w-4" />
+              </motion.button>
             </header>
 
-            {/* Modal Body */}
-            <div className="grid grid-cols-1 gap-8 p-6 sm:p-8 lg:grid-cols-12">
-              {/* Image Gallery Column */}
-              <div className="flex flex-col lg:col-span-7">
-                <div className="relative flex h-72 w-full items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-[#1a1a1e] sm:h-96 dark:border-white/10">
+            {/* Modal Content Layout */}
+            <div
+              ref={mobileScrollRef}
+              onScroll={handleScroll}
+              className="grid flex-1 min-h-0 grid-cols-1 gap-6 overflow-y-auto p-4 sm:p-6 lg:grid-cols-12 lg:gap-8 lg:overflow-hidden lg:p-8 [scrollbar-width:thin] [scrollbar-color:rgba(242,85,46,0.4)_transparent]"
+            >
+              {/* Left Column: Media Showcase */}
+              <div className="flex shrink-0 flex-col lg:col-span-7">
+                <div className="relative flex aspect-video max-h-56 w-full items-center justify-center overflow-hidden rounded-xl border border-black/10 bg-black/90 sm:max-h-80 lg:max-h-none lg:h-96 sm:rounded-2xl dark:border-white/10">
                   {images.length ? (
                     <img
                       src={images[activeImageIdx]}
@@ -109,88 +154,125 @@ export default function ProjectModal({ project, onClose }) {
                       className="h-full w-full object-contain p-2"
                     />
                   ) : (
-                    <p className="text-sm text-white/70">Screenshot unavailable</p>
+                    <p className="text-xs text-white/50">Screenshot unavailable</p>
                   )}
 
+                  {/* Image Controls */}
                   {images.length > 1 && (
                     <>
                       <button
                         type="button"
                         onClick={previous}
                         aria-label="Previous screenshot"
-                        className="absolute left-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-2xl text-white backdrop-blur-xs transition hover:bg-black/80"
+                        className="absolute left-2.5 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition hover:bg-[#f2552e] sm:left-3.5 sm:h-10 sm:w-10"
                       >
-                        &lsaquo;
+                        <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
                       </button>
                       <button
                         type="button"
                         onClick={next}
                         aria-label="Next screenshot"
-                        className="absolute right-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-2xl text-white backdrop-blur-xs transition hover:bg-black/80"
+                        className="absolute right-2.5 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition hover:bg-[#f2552e] sm:right-3.5 sm:h-10 sm:w-10"
                       >
-                        &rsaquo;
+                        <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
                       </button>
                     </>
                   )}
 
+                  {/* Counter Badge */}
                   {!!images.length && (
-                    <span className="absolute bottom-3 right-3 rounded-full bg-black/70 px-3 py-1 text-xs font-bold text-white backdrop-blur-xs">
+                    <span className="absolute bottom-2.5 right-2.5 rounded-lg bg-black/80 px-2 py-0.5 font-mono text-[10px] font-bold text-white backdrop-blur-md sm:bottom-3.5 sm:right-3.5 sm:px-2.5 sm:py-1 sm:text-xs">
                       {activeImageIdx + 1} / {images.length}
                     </span>
                   )}
                 </div>
 
-                {/* Thumbnails Row */}
+                {/* Thumbnail Row */}
                 {images.length > 1 && (
-                  <div className="mt-3 flex gap-2 overflow-x-auto pb-2">
-                    {images.map((img, index) => (
+                  <div className="mt-3 flex flex-col gap-2 sm:mt-4">
+                    <div
+                      ref={thumbnailTrackRef}
+                      className="flex gap-2 overflow-x-auto pb-1 sm:gap-2.5 [scrollbar-width:none] [-ms-overflow-style:none]"
+                    >
+                      {images.map((img, index) => (
+                        <button
+                          type="button"
+                          key={index}
+                          onClick={() => setImageIndex(index)}
+                          aria-label={`Show screenshot ${index + 1}`}
+                          aria-pressed={activeImageIdx === index}
+                          className={`
+                            relative h-12 w-16 shrink-0 overflow-hidden rounded-lg border-2 transition-all sm:h-16 sm:w-22 sm:rounded-xl
+                            ${
+                              activeImageIdx === index
+                                ? "border-[#f2552e] opacity-100 shadow-[0_0_10px_rgba(242,85,46,0.4)]"
+                                : "border-black/10 opacity-50 hover:opacity-80 dark:border-white/10"
+                            }
+                          `}
+                        >
+                          <img src={img} alt="" className="h-full w-full object-cover" />
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Accent Scrollbar Bar with Arrow Controls */}
+                    <div className="flex items-center gap-2 pt-1">
                       <button
                         type="button"
-                        key={index}
-                        onClick={() => setImageIndex(index)}
-                        aria-label={`Show screenshot ${index + 1}`}
-                        aria-pressed={activeImageIdx === index}
-                        className={`
-                          relative h-16 w-20 shrink-0 overflow-hidden rounded-xl border-2 transition-all
-                          ${activeImageIdx === index 
-                            ? "scale-105 border-[#f2552e] opacity-100 shadow-md" 
-                            : "border-black/10 opacity-60 hover:opacity-100 dark:border-white/10"}
-                        `}
+                        onClick={() => scrollThumbnails("left")}
+                        className="text-[#f2552e] opacity-75 hover:opacity-100 transition-opacity"
                       >
-                        <img src={img} alt="" className="h-full w-full object-cover" />
+                        <ChevronLeft className="h-3.5 w-3.5" />
                       </button>
-                    ))}
+                      <div className="relative h-[2px] flex-1 rounded-full bg-black/10 dark:bg-white/10">
+                        <div
+                          className="absolute left-0 top-0 h-full rounded-full bg-[#f2552e] shadow-[0_0_8px_#f2552e] transition-all duration-200"
+                          style={{
+                            width: `${((activeImageIdx + 1) / images.length) * 100}%`,
+                          }}
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => scrollThumbnails("right")}
+                        className="text-[#f2552e] opacity-75 hover:opacity-100 transition-opacity"
+                      >
+                        <ChevronRight className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
 
-              {/* Information & Actions Column */}
-              <div className="flex flex-col justify-between space-y-6 lg:col-span-5">
-                <div className="space-y-6">
-                  {/* Overview */}
+              {/* Right Column: Project Info */}
+              <div
+                ref={desktopScrollRef}
+                onScroll={handleScroll}
+                className="flex flex-col justify-between space-y-5 lg:col-span-5 lg:h-full lg:overflow-y-auto lg:pr-1 sm:space-y-6 [scrollbar-width:thin] [scrollbar-color:rgba(242,85,46,0.4)_transparent]"
+              >
+                <div className="space-y-5 sm:space-y-6">
                   <div>
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-[#f2552e]">
+                    <h3 className="text-[11px] font-bold uppercase tracking-widest text-[#f2552e]">
                       Project Overview
-                    </h4>
-                    <p className="project-modal__description mt-2 text-sm leading-relaxed">
+                    </h3>
+                    <p className="mt-2 text-xs leading-relaxed opacity-85 sm:text-sm">
                       {project.description}
                     </p>
                   </div>
 
-                  {/* Highlights */}
                   {!!project.features?.length && (
                     <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-[#f2552e]">
+                      <h3 className="text-[11px] font-bold uppercase tracking-widest text-[#f2552e]">
                         Key Features &amp; Highlights
-                      </h4>
-                      <div className="mt-3 space-y-2">
+                      </h3>
+                      <div className="mt-2.5 space-y-2 sm:mt-3">
                         {project.features.map((feature) => (
                           <div
                             key={feature}
-                            className="project-modal__feature flex items-center gap-3 rounded-xl p-3 shadow-2xs"
+                            className="flex items-center gap-2.5 rounded-xl border border-black/5 bg-black/5 p-2.5 sm:gap-3 sm:p-3 dark:border-white/10 dark:bg-white/5"
                           >
-                            <CheckCircleIcon className="h-5 w-5 shrink-0 text-[#f2552e]" />
-                            <span className="project-modal__feature-text text-xs font-semibold">
+                            <CheckCircle2 className="h-4 w-4 shrink-0 text-[#f2552e]" />
+                            <span className="text-xs font-semibold">
                               {feature}
                             </span>
                           </div>
@@ -199,16 +281,15 @@ export default function ProjectModal({ project, onClose }) {
                     </div>
                   )}
 
-                  {/* Tech Badges */}
                   <div>
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-[#f2552e]">
+                    <h3 className="text-[11px] font-bold uppercase tracking-widest text-[#f2552e]">
                       Technologies &amp; Tools
-                    </h4>
-                    <div className="mt-3 flex flex-wrap gap-2">
+                    </h3>
+                    <div className="mt-2.5 flex flex-wrap gap-1.5 sm:mt-3 sm:gap-2">
                       {(project.technologies ?? []).map((tech) => (
                         <span
                           key={tech}
-                          className="project-modal__tech rounded-md px-3 py-1 text-[11px] font-bold shadow-2xs"
+                          className="rounded-lg border border-black/10 bg-black/5 px-2.5 py-1 font-mono text-[10px] font-bold dark:border-white/10 dark:bg-white/10"
                         >
                           {tech}
                         </span>
@@ -217,17 +298,17 @@ export default function ProjectModal({ project, onClose }) {
                   </div>
                 </div>
 
-                {/* Bottom Link Action Buttons */}
-                <div className="flex flex-col gap-3 border-t border-black/10 pt-4 dark:border-white/10 sm:flex-row">
+                {/* Action Buttons */}
+                <div className="flex flex-col gap-2.5 border-t border-black/10 pt-4 dark:border-white/10 sm:flex-row sm:gap-3">
                   {project.liveLink && (
                     <a
                       href={project.liveLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#f2552e] px-4 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-sm transition hover:bg-[#d84420] active:scale-[0.98]"
+                      className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#f2552e] px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-sm transition hover:bg-[#d84420] active:scale-[0.98]"
                     >
                       <span>Live Demo</span>
-                      <ExternalLinkIcon />
+                      <ExternalLink className="h-4 w-4" />
                     </a>
                   )}
                   {project.githubLink && (
@@ -235,9 +316,9 @@ export default function ProjectModal({ project, onClose }) {
                       href={project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="project-modal__repository flex flex-1 items-center justify-center gap-2 rounded-xl px-4 py-3 text-xs font-bold uppercase tracking-wider shadow-2xs transition active:scale-[0.98]"
+                      className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-black/15 bg-black/5 px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition hover:bg-black/10 active:scale-[0.98] dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10"
                     >
-                      <GithubIcon />
+                      <GithubIcon className="h-4 w-4" />
                       <span>Repository</span>
                     </a>
                   )}

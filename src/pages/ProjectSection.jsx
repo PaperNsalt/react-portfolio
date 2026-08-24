@@ -4,13 +4,13 @@ import ProjectGridCard from "../components/ProjectGridCard.jsx";
 import ProjectModal from "../components/ProjectModal.jsx";
 import Section from "../components/Section.jsx";
 
-import thebrandcollective from "../img/thebrandcollective.png";
-import StudentManagementSystem from "../img/Student Management System.png";
-import BuGwaCalculator from "../img/Bu Gwa Calculator.png";
-import QuickDeal from "../img/QuickDeal.png";
-import Clima from "../img/CLIMA.png";
-import MapCanvas from "../img/MapCanvas.png";
-import QuoteSpark from "../img/QouteSpark.png";
+import thebrandcollective from "../img/Web/thebrandcollective.png";
+import StudentManagementSystem from "../img/Web/Student Management System.png";
+import BuGwaCalculator from "../img/Web/Bu Gwa Calculator.png";
+import QuickDeal from "../img/Web/QuickDeal.png";
+import Clima from "../img/Web/CLIMA.png";
+import MapCanvas from "../img/Web/MapCanvas.png";
+import QuoteSpark from "../img/Web/QouteSpark.png";
 
 import GitHubActivity from '../components/GithubActivity.jsx';
 
@@ -115,7 +115,7 @@ const projects = [
     category: "INTERACTIVE MAP",
     role: "Frontend Developer",
     description:
-      "An interactive map-focused project built to make geographic exploration clear, responsive, and engaging.",
+      "An interactive map-focused project built to make geographic exploration clear, responsive, and engaging. An interactive map-focused project built to make geographic exploration clear, responsive, and engaging.An interactive map-focused project built to make geographic exploration clear, responsive, and engaging.An interactive map-focused project built to make geographic exploration clear, responsive, and engaging.An interactive map-focused project built to make geographic exploration clear, responsive, and engaging.",
     features: [
       "Interactive Map Canvas Controls",
       "Custom Marker Rendering",

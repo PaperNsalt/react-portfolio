@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 import logo from "../assets/vector/IamJem.svg";
 import ThemeToggle from "../components/ThemeToggle";
+import Masonry from "../components/Masonry/Masonry.jsx";
 import { galleryWorks } from "../data/gallery";
 
 const categories = [
@@ -13,12 +14,22 @@ const categories = [
 function Gallery() {
   const [selectedWork, setSelectedWork] = useState(null);
   const [activeCategory, setActiveCategory] = useState("All");
+
   const filteredWorks = useMemo(
     () =>
       activeCategory === "All"
         ? galleryWorks
         : galleryWorks.filter((work) => work.category === activeCategory),
-    [activeCategory],
+    [activeCategory]
+  );
+
+  const masonryItems = useMemo(
+    () =>
+      filteredWorks.map((work) => ({
+        ...work,
+        img: work.image,
+      })),
+    [filteredWorks]
   );
 
   useEffect(() => {
@@ -100,39 +111,25 @@ function Gallery() {
             </button>
           ))}
         </div>
-        <motion.div layout className="gallery-grid">
-          <AnimatePresence mode="popLayout">
-            {filteredWorks.map((work, index) => (
-              <motion.button
-                key={work.id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ delay: index * 0.045, duration: 0.32 }}
-                onClick={() => setSelectedWork(work)}
-                className="gallery-card"
-              >
-                <div className="gallery-card__image">
-                  <img src={work.image} alt={work.title} loading="lazy" />
-                  <span>↗</span>
-                </div>
-                <div className="gallery-card__body">
-                  <p>
-                    <span>{work.category}</span>
-                    <span>{work.year}</span>
-                  </p>
-                  <h3>{work.title}</h3>
-                  <span className="gallery-card__view">
-                    View piece <b>↗</b>
-                  </span>
-                </div>
-              </motion.button>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+
+        {/* Masonry Layout */}
+        <div className="gallery-masonry-wrapper mt-8">
+          <Masonry
+            items={masonryItems}
+            ease="power3.out"
+            duration={0.6}
+            stagger={0.04}
+            animateFrom="bottom"
+            scaleOnHover={true}
+            hoverScale={0.98}
+            blurToFocus={true}
+            colorShiftOnHover={false}
+            onItemClick={setSelectedWork}
+          />
+        </div>
       </section>
 
+      {/* Detail Modal */}
       <AnimatePresence>
         {selectedWork && (
           <motion.div
