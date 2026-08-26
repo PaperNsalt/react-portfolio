@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
   assetsInclude: ["**/*.glb"],
   plugins: [react(), tailwindcss()],
-  base: "/react-portfolio/",
+  base: "/",
 
   resolve: {
     alias: {
