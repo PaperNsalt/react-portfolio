@@ -211,7 +211,7 @@ function Header() {
           <span className="flex items-center gap-3">
             <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/80 bg-white/85 p-1.5 shadow-sm dark:border-white/20 dark:bg-white/10">
               <img
-                className="h-full w-full"
+                className="size-6"
                 src={logo}
                 alt=""
                 aria-hidden="true"
