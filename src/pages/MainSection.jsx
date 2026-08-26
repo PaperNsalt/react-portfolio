@@ -177,9 +177,7 @@ function MainSection() {
             <p className="max-w-md text-lg leading-relaxed text-black/65 sm:text-xl">
               I build digital work where visual craft and practical technology meet.
             </p>
-            <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[.16em] text-black/45">
-              <span className="h-px w-8 bg-current" /> Based in Albay, Philippines
-            </div>
+
           </motion.div>
         </div>
       </section>
@@ -241,7 +239,7 @@ function MainSection() {
           <div className="w-full flex justify-center lg:w-auto">
             <ProfileCard
               name="Jeremy Rellama"
-              title="Web Developer"
+              title="Web Developer & Graphic Designer"
               handle="saltnpaper"
               status="Online"
               contactText="Contact Me"
