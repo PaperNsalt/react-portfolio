@@ -101,7 +101,18 @@ const Masonry = ({
   };
 
   useEffect(() => {
-    preloadImages(items.map(i => i.img)).then(() => setImagesReady(true));
+    let isCancelled = false;
+    setImagesReady(false);
+
+    preloadImages(items.map(i => i.img)).then(() => {
+      if (!isCancelled) {
+        setImagesReady(true);
+      }
+    });
+
+    return () => {
+      isCancelled = true;
+    };
   }, [items]);
 
   const grid = useMemo(() => {
@@ -114,7 +125,6 @@ const Masonry = ({
       const col = colHeights.indexOf(Math.min(...colHeights));
       const x = columnWidth * col;
       
-      // Compute height preserving aspect ratio if width is provided
       const height = child.width && child.height
         ? (columnWidth * child.height) / child.width
         : (child.height || 400);
@@ -223,43 +233,59 @@ const Masonry = ({
   };
 
   return (
-    <div ref={containerRef} className="list" style={{ height: totalHeight }}>
-      {grid.map(item => (
-        <div
-          key={item.id}
-          data-key={item.id}
-          className="item-wrapper"
-          onClick={() => onItemClick?.(item)}
-          onMouseEnter={e => handleMouseEnter(e, item)}
-          onMouseLeave={e => handleMouseLeave(e, item)}
-        >
-          <div className="item-img" style={{ backgroundImage: `url("${item.img}")` }}>
-            <div className="item-card-info">
-              <div className="item-card-meta">
-                <span>{item.category}</span>
-                <span>{item.year}</span>
-              </div>
-              <h3 className="item-card-title">{item.title}</h3>
-            </div>
-            {colorShiftOnHover && (
-              <div
-                className="color-overlay"
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(45deg, rgba(242,85,46,0.4), rgba(0,0,0,0.6))',
-                  opacity: 0,
-                  pointerEvents: 'none',
-                  borderRadius: '16px'
-                }}
-              />
-            )}
+    <div
+      ref={containerRef}
+      className="list min-h-[380px]"
+      style={{ height: imagesReady ? totalHeight : 'auto' }}
+    >
+      {!imagesReady ? (
+        <div className="flex min-h-[380px] w-full flex-col items-center justify-center gap-4 py-20 text-center">
+          <div className="relative flex items-center justify-center">
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#f2552e] border-t-transparent" />
+            <div className="absolute h-4 w-4 rounded-full bg-[#f2552e]/20" />
           </div>
+          <span className="font-mono text-xs uppercase tracking-[0.2em] text-black/50 dark:text-white/50">
+            Loading visual archive...
+          </span>
         </div>
-      ))}
+      ) : (
+        grid.map(item => (
+          <div
+            key={item.id}
+            data-key={item.id}
+            className="item-wrapper"
+            onClick={() => onItemClick?.(item)}
+            onMouseEnter={e => handleMouseEnter(e, item)}
+            onMouseLeave={e => handleMouseLeave(e, item)}
+          >
+            <div className="item-img" style={{ backgroundImage: `url("${item.img}")` }}>
+              <div className="item-card-info">
+                <div className="item-card-meta">
+                  <span>{item.category}</span>
+                  <span>{item.year}</span>
+                </div>
+                <h3 className="item-card-title">{item.title}</h3>
+              </div>
+              {colorShiftOnHover && (
+                <div
+                  className="color-overlay"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    background: 'linear-gradient(45deg, rgba(242,85,46,0.4), rgba(0,0,0,0.6))',
+                    opacity: 0,
+                    pointerEvents: 'none',
+                    borderRadius: '16px'
+                  }}
+                />
+              )}
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 };
